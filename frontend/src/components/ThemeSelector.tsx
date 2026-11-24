@@ -25,8 +25,8 @@ export const ThemeSelector: React.FC = () => {
         onClick={() => setIsOpen(!isOpen)}
         className={`px-3 py-1.5 rounded-xl border flex items-center gap-2 text-xs font-semibold transition-all ${
           theme.isLight
-            ? 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'
-            : `${theme.bgCard} hover:border-slate-600 text-slate-200 ${theme.borderCard}`
+            ? 'bg-[#faf7f0] hover:bg-[#ede6d9] text-[#40392f] border-[#d1c8b4]'
+            : 'bg-[#222a24] hover:bg-[#2b352f] text-[#ece6da] border-[#465248]'
         }`}
         title="Change Color Theme"
       >
@@ -37,14 +37,14 @@ export const ThemeSelector: React.FC = () => {
 
       {isOpen && (
         <div
-          className={`absolute right-0 mt-2 w-52 rounded-2xl p-2 shadow-2xl border backdrop-blur-xl z-50 flex flex-col gap-1 ${
+          className={`absolute right-0 mt-2 w-56 rounded-2xl p-2 shadow-2xl border backdrop-blur-xl z-50 flex flex-col gap-1 transition-all ${
             theme.isLight
-              ? 'bg-white/95 border-slate-200 text-slate-800 shadow-slate-300/50'
-              : 'bg-slate-900/95 border-slate-700 text-slate-100 shadow-black/80'
+              ? 'bg-[#faf7f0] border-[#d1c8b4] text-[#40392f] shadow-xl'
+              : 'bg-[#1e2520] border-[#465248] text-[#ece6da] shadow-2xl'
           }`}
         >
-          <div className="text-[10px] font-semibold uppercase tracking-wider px-2 py-1 text-slate-400">
-            Select Color Theme
+          <div className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-1 ${theme.textMuted}`}>
+            Select Color Palette
           </div>
 
           {(Object.keys(THEMES) as ThemeId[]).map((id) => {
@@ -60,25 +60,29 @@ export const ThemeSelector: React.FC = () => {
                 className={`flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-medium transition-all ${
                   isSelected
                     ? theme.isLight
-                      ? 'bg-indigo-50 text-indigo-700 font-bold'
-                      : 'bg-slate-800 text-white font-bold'
+                      ? 'bg-[#ede6d9] text-[#40392f] font-bold border border-[#d1c8b4]'
+                      : 'bg-[#28322a] text-[#ece6da] font-bold border border-[#7a7c64]/50'
                     : theme.isLight
-                    ? 'hover:bg-slate-100 text-slate-600'
-                    : 'hover:bg-slate-800/60 text-slate-300'
+                    ? 'hover:bg-[#f0e9dc] text-[#40392f]'
+                    : 'hover:bg-[#28322a]/70 text-[#ded7c8]'
                 }`}
               >
                 <div className="flex items-center gap-2">
                   <span className="text-base">{t.icon}</span>
                   <div className="flex flex-col text-left">
-                    <span>{t.name}</span>
+                    <span className="font-semibold">{t.name}</span>
                     <div className="flex items-center gap-1 mt-0.5">
                       <span
-                        className="w-2.5 h-2.5 rounded-full inline-block"
+                        className="w-2.5 h-2.5 rounded-full inline-block border border-black/20"
                         style={{ backgroundColor: t.primaryHex }}
                       />
                       <span
-                        className="w-2.5 h-2.5 rounded-full inline-block"
+                        className="w-2.5 h-2.5 rounded-full inline-block border border-black/20"
                         style={{ backgroundColor: t.secondaryHex }}
+                      />
+                      <span
+                        className="w-2.5 h-2.5 rounded-full inline-block border border-black/20"
+                        style={{ backgroundColor: t.accentHex }}
                       />
                     </div>
                   </div>

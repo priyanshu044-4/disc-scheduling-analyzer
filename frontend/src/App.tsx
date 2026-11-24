@@ -90,8 +90,8 @@ function AppContent() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white shadow-lg"
-              style={{ backgroundColor: theme.primaryHex }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center font-bold shadow-lg"
+              style={{ backgroundColor: theme.primaryHex, color: theme.primaryTextHex }}
             >
               <Cpu className="w-5 h-5" />
             </div>
@@ -102,10 +102,10 @@ function AppContent() {
           </div>
 
           {/* Navigation Tabs */}
-          <nav className={`flex items-center gap-1 p-1 rounded-xl border ${theme.borderSub} ${theme.isLight ? 'bg-slate-100' : 'bg-slate-900/90'}`}>
+          <nav className={`flex items-center gap-1 p-1 rounded-xl border ${theme.borderSub} ${theme.bgCardSub}`}>
             <button
               onClick={() => setActiveTab('simulate')}
-              style={activeTab === 'simulate' ? { backgroundColor: theme.primaryHex, color: '#ffffff' } : {}}
+              style={activeTab === 'simulate' ? { backgroundColor: theme.primaryHex, color: theme.primaryTextHex } : {}}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
                 activeTab === 'simulate'
                   ? 'shadow-md font-bold'
@@ -120,7 +120,7 @@ function AppContent() {
                 setActiveTab('compare');
                 triggerConfetti();
               }}
-              style={activeTab === 'compare' ? { backgroundColor: theme.primaryHex, color: '#ffffff' } : {}}
+              style={activeTab === 'compare' ? { backgroundColor: theme.primaryHex, color: theme.primaryTextHex } : {}}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
                 activeTab === 'compare'
                   ? 'shadow-md font-bold'
@@ -132,7 +132,7 @@ function AppContent() {
             </button>
             <button
               onClick={() => setActiveTab('theory')}
-              style={activeTab === 'theory' ? { backgroundColor: theme.primaryHex, color: '#ffffff' } : {}}
+              style={activeTab === 'theory' ? { backgroundColor: theme.primaryHex, color: theme.primaryTextHex } : {}}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
                 activeTab === 'theory'
                   ? 'shadow-md font-bold'
@@ -153,8 +153,8 @@ function AppContent() {
               rel="noreferrer"
               className={`p-2 rounded-lg border transition-colors flex items-center gap-1.5 text-xs font-medium ${
                 theme.isLight
-                  ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300'
-                  : 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700/60'
+                  ? 'bg-[#faf7f0] hover:bg-[#ede6d9] text-[#40392f] border-[#d1c8b4]'
+                  : 'bg-[#222a24] hover:bg-[#2b352f] text-[#ece6da] border-[#465248]'
               }`}
               title="View on GitHub"
             >
@@ -192,13 +192,13 @@ function AppContent() {
                       <button
                         key={algo}
                         onClick={() => handleAlgoSelect(algo)}
-                        style={isSelected ? { backgroundColor: theme.primaryHex, color: '#ffffff' } : {}}
+                        style={isSelected ? { backgroundColor: theme.primaryHex, color: theme.primaryTextHex } : {}}
                         className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all border ${
                           isSelected
                             ? 'shadow-lg scale-105 border-transparent'
                             : theme.isLight
-                            ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
-                            : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white border-slate-700'
+                            ? 'bg-[#faf7f0] hover:bg-[#ede6d9] text-[#40392f] border-[#d1c8b4]'
+                            : 'bg-[#19201a] text-[#ded7c8] hover:bg-[#2b352f] hover:text-[#ece6da] border-[#465248]'
                         }`}
                       >
                         {algo}
@@ -288,8 +288,8 @@ function AppContent() {
                           isActive
                             ? 'font-bold'
                             : theme.isLight
-                            ? 'hover:bg-slate-100/70'
-                            : 'hover:bg-slate-800/40'
+                            ? 'hover:bg-[#f0e9dc]'
+                            : 'hover:bg-[#222a24]/60'
                         }`}
                       >
                         <td className="py-2 px-3 font-semibold" style={{ color: theme.primaryHex }}>
@@ -302,8 +302,8 @@ function AppContent() {
                           <span
                             className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold border ${
                               st.isService
-                                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                                : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                                ? 'bg-[#7a7c64]/20 text-[#cec88a] border-[#7a7c64]/40'
+                                : 'bg-[#a85b4d]/20 text-[#e69b8f] border-[#a85b4d]/40'
                             }`}
                           >
                             {st.isService ? 'Service I/O' : 'Boundary Swing'}
@@ -399,7 +399,7 @@ function AppContent() {
 
             <div className={`border-t ${theme.borderSub} pt-4`}>
               <h3 className={`font-bold ${theme.textTitle} text-sm mb-3 flex items-center gap-2`}>
-                <HelpCircle className="w-4 h-4 text-amber-400" />
+                <HelpCircle className="w-4 h-4" style={{ color: theme.primaryHex }} />
                 Essential Viva / Oral Exam Questions
               </h3>
               <div className="flex flex-col gap-3 text-xs">
@@ -433,7 +433,7 @@ function AppContent() {
             Disc Scheduling Analyzer & Hardware Simulator — Advanced Operating Systems (AOS) Project
           </span>
           <div className="flex items-center gap-3">
-            <span className="text-emerald-400 flex items-center gap-1 font-mono">
+            <span className="flex items-center gap-1 font-mono" style={{ color: theme.primaryHex }}>
               <CheckCircle2 className="w-3.5 h-3.5" /> Vercel Ready
             </span>
           </div>

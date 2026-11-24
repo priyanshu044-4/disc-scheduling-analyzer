@@ -53,12 +53,12 @@ export const TrajectoryChart: React.FC<Props> = ({
           </h3>
         </div>
         <div className={`text-xs font-mono ${theme.textMuted}`}>
-          Click any node to jump to step
+          Click any step node to jump
         </div>
       </div>
 
       <div className="relative w-full overflow-hidden flex items-center justify-center">
-        <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto drop-shadow-lg">
+        <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto drop-shadow-xl">
           <defs>
             <linearGradient id="themeLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor={theme.primaryHex} />
@@ -76,10 +76,10 @@ export const TrajectoryChart: React.FC<Props> = ({
             y={padding.top}
             width={plotWidth}
             height={plotHeight}
-            fill={theme.isLight ? '#f1f5f9' : '#090d16'}
-            stroke={theme.isLight ? '#cbd5e1' : '#1e293b'}
+            fill={theme.chartBg}
+            stroke={theme.chartLineInactive}
             strokeWidth="1.5"
-            rx="6"
+            rx="8"
           />
 
           {/* Vertical Grid Lines (Cylinders) */}
@@ -93,13 +93,13 @@ export const TrajectoryChart: React.FC<Props> = ({
                   y1={padding.top}
                   x2={x}
                   y2={padding.top + plotHeight}
-                  stroke={theme.isLight ? '#cbd5e1' : '#1e293b'}
+                  stroke={theme.chartGrid}
                   strokeDasharray="3 3"
                 />
                 <text
                   x={x}
                   y={height - padding.bottom + 20}
-                  fill={theme.isLight ? '#64748b' : '#64748b'}
+                  fill={theme.chartText}
                   fontSize="11"
                   fontFamily="monospace"
                   textAnchor="middle"
@@ -120,14 +120,14 @@ export const TrajectoryChart: React.FC<Props> = ({
                   y1={y}
                   x2={padding.left + plotWidth}
                   y2={y}
-                  stroke={theme.isLight ? '#e2e8f0' : '#1e293b'}
+                  stroke={theme.chartGrid}
                   strokeWidth="0.8"
-                  opacity={i % 2 === 0 ? 0.8 : 0.3}
+                  opacity={i % 2 === 0 ? 0.8 : 0.4}
                 />
                 <text
                   x={padding.left - 12}
                   y={y + 4}
-                  fill="#64748b"
+                  fill={theme.chartText}
                   fontSize="10"
                   fontFamily="monospace"
                   textAnchor="end"
@@ -138,14 +138,14 @@ export const TrajectoryChart: React.FC<Props> = ({
             );
           })}
 
-          {/* Full Inactive Trajectory Path (Dimmed) */}
+          {/* Full Inactive Trajectory Path (Dashed) */}
           <path
             d={pathD}
             fill="none"
-            stroke={theme.isLight ? '#94a3b8' : '#334155'}
+            stroke={theme.chartLineInactive}
             strokeWidth="2"
             strokeDasharray="4 4"
-            opacity="0.5"
+            opacity="0.6"
           />
 
           {/* Active Trajectory Path */}
@@ -197,14 +197,14 @@ export const TrajectoryChart: React.FC<Props> = ({
                   r={isCurrent ? 7 : isHovered ? 6 : 4.5}
                   fill={
                     isInitial
-                      ? '#f59e0b'
+                      ? '#cec88a'
                       : isCurrent
                       ? theme.primaryHex
                       : isService
-                      ? '#10b981'
-                      : '#ef4444'
+                      ? '#7a7c64'
+                      : '#a85b4d'
                   }
-                  stroke={theme.isLight ? '#ffffff' : '#0f172a'}
+                  stroke={theme.isLight ? '#faf7f0' : '#181d19'}
                   strokeWidth="2"
                 />
 
@@ -217,14 +217,14 @@ export const TrajectoryChart: React.FC<Props> = ({
                       width="76"
                       height="20"
                       rx="4"
-                      fill={theme.isLight ? '#1e293b' : '#0f172a'}
+                      fill={theme.isLight ? '#40392f' : '#222a24'}
                       stroke={theme.primaryHex}
                       strokeWidth="1.5"
                     />
                     <text
                       x="0"
                       y="-8"
-                      fill="#ffffff"
+                      fill={theme.isLight ? '#ece6da' : '#ece6da'}
                       fontSize="10"
                       fontFamily="monospace"
                       fontWeight="bold"
@@ -241,7 +241,7 @@ export const TrajectoryChart: React.FC<Props> = ({
           <text
             x={padding.left + plotWidth / 2}
             y={height - 8}
-            fill={theme.isLight ? '#475569' : '#94a3b8'}
+            fill={theme.chartText}
             fontSize="11"
             fontFamily="sans-serif"
             fontWeight="bold"
@@ -252,17 +252,17 @@ export const TrajectoryChart: React.FC<Props> = ({
         </svg>
       </div>
 
-      <div className={`flex items-center justify-center gap-6 mt-3 pt-3 border-t ${theme.borderSub} text-xs ${theme.textMuted}`}>
+      <div className={`flex items-center justify-center flex-wrap gap-6 mt-3 pt-3 border-t ${theme.borderSub} text-xs ${theme.textMuted}`}>
         <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-full bg-amber-500" />
+          <span className="w-3 h-3 rounded-full bg-[#cec88a]" />
           <span>Starting Head</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-full bg-emerald-500" />
+          <span className="w-3 h-3 rounded-full bg-[#7a7c64]" />
           <span>Serviced Request</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-full bg-red-500" />
+          <span className="w-3 h-3 rounded-full bg-[#a85b4d]" />
           <span>Boundary Turnaround</span>
         </div>
         <div className="flex items-center gap-2">

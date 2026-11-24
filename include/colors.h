@@ -12,7 +12,7 @@
 #define ANSI_DIM          "\033[2m"
 #define ANSI_UNDERLINE    "\033[4m"
 
-/* Foreground Colors */
+/* Standard 16-color Foreground */
 #define ANSI_BLACK        "\033[30m"
 #define ANSI_RED          "\033[31m"
 #define ANSI_GREEN        "\033[32m"
@@ -30,6 +30,15 @@
 #define ANSI_BRIGHT_MAGENTA "\033[95m"
 #define ANSI_BRIGHT_CYAN    "\033[96m"
 #define ANSI_BRIGHT_WHITE   "\033[97m"
+
+/* Rustic Earthy Palette (RGB 24-bit TrueColor from Swatches) */
+#define ANSI_RUSTIC_CREAM       "\033[38;2;236;230;218m"  /* #ece6da: Warm Linen */
+#define ANSI_RUSTIC_GOLD        "\033[38;2;206;200;138m"  /* #cec88a: Moss Gold */
+#define ANSI_RUSTIC_SAGE        "\033[38;2;122;124;100m"  /* #7a7c64: Sage Green */
+#define ANSI_RUSTIC_SPRUCE      "\033[38;2;70;82;72m"     /* #465248: Forest Spruce */
+#define ANSI_RUSTIC_BARK        "\033[38;2;64;57;47m"     /* #40392f: Charcoal Bark */
+#define ANSI_RUSTIC_TAUPE       "\033[38;2;188;176;150m"  /* #bcb096: Warm Taupe */
+#define ANSI_RUSTIC_TERRACOTTA  "\033[38;2;168;91;77m"    /* #a85b4d: Weathered Brick */
 
 /* Background Colors */
 #define ANSI_BG_BLACK     "\033[40m"

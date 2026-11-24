@@ -14,15 +14,15 @@ export const StatsCards: React.FC<Props> = ({ result, config }) => {
   const getStarvationBadge = (risk: string) => {
     switch (risk) {
       case 'None':
-        return 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
+        return 'bg-[#7a7c64]/25 text-[#cec88a] border-[#7a7c64]/40';
       case 'Low':
-        return 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30';
+        return 'bg-[#7a7c64]/15 text-[#ded7c8] border-[#7a7c64]/30';
       case 'Moderate':
-        return 'bg-amber-500/15 text-amber-400 border-amber-500/30';
+        return 'bg-[#bcb096]/20 text-[#cec88a] border-[#bcb096]/40';
       case 'High':
-        return 'bg-red-500/15 text-red-400 border-red-500/30';
+        return 'bg-[#a85b4d]/25 text-[#e69b8f] border-[#a85b4d]/40';
       default:
-        return 'bg-slate-500/15 text-slate-400 border-slate-500/30';
+        return 'bg-[#2b352f] text-[#bcb096] border-[#465248]';
     }
   };
 
@@ -47,7 +47,7 @@ export const StatsCards: React.FC<Props> = ({ result, config }) => {
       <div className={`${theme.bgCard} ${theme.borderCard} border rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between transition-all`}>
         <div className={`flex items-center justify-between ${theme.textMuted} text-xs mb-1`}>
           <span>Seek Time</span>
-          <Clock className="w-4 h-4 text-blue-400" />
+          <Clock className="w-4 h-4" style={{ color: theme.secondaryHex }} />
         </div>
         <div className={`text-2xl font-bold font-mono ${theme.textTitle}`}>
           {result.estSeekTimeMs.toFixed(2)}{' '}
@@ -62,7 +62,7 @@ export const StatsCards: React.FC<Props> = ({ result, config }) => {
       <div className={`${theme.bgCard} ${theme.borderCard} border rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between transition-all`}>
         <div className={`flex items-center justify-between ${theme.textMuted} text-xs mb-1`}>
           <span>Rot. Latency</span>
-          <Gauge className="w-4 h-4 text-indigo-400" />
+          <Gauge className="w-4 h-4" style={{ color: theme.primaryHex }} />
         </div>
         <div className={`text-2xl font-bold font-mono ${theme.textTitle}`}>
           {result.avgRotationalLatencyMs.toFixed(2)}{' '}
@@ -77,9 +77,9 @@ export const StatsCards: React.FC<Props> = ({ result, config }) => {
       <div className={`${theme.bgCard} ${theme.borderCard} border rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between transition-all`}>
         <div className={`flex items-center justify-between ${theme.textMuted} text-xs mb-1`}>
           <span>Service Time</span>
-          <Zap className="w-4 h-4 text-amber-400" />
+          <Zap className="w-4 h-4" style={{ color: theme.primaryHex }} />
         </div>
-        <div className="text-2xl font-bold font-mono text-amber-400">
+        <div className="text-2xl font-bold font-mono" style={{ color: theme.primaryHex }}>
           {result.totalServiceTimeMs.toFixed(2)}{' '}
           <span className="text-xs font-normal opacity-60">ms</span>
         </div>
@@ -106,7 +106,7 @@ export const StatsCards: React.FC<Props> = ({ result, config }) => {
       <div className={`${theme.bgCard} ${theme.borderCard} border rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between transition-all`}>
         <div className={`flex items-center justify-between ${theme.textMuted} text-xs mb-1`}>
           <span>Starvation</span>
-          <ShieldAlert className="w-4 h-4 text-emerald-400" />
+          <ShieldAlert className="w-4 h-4" style={{ color: theme.primaryHex }} />
         </div>
         <div>
           <span

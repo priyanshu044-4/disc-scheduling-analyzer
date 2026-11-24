@@ -65,19 +65,19 @@ export const AlgorithmComparisonView: React.FC<Props> = ({
         className={`${theme.bgCard} ${theme.borderCard} border rounded-2xl p-5 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4 transition-all`}
         style={{
           background: theme.isLight
-            ? 'linear-gradient(135deg, #e0e7ff 0%, #ffffff 100%)'
-            : `linear-gradient(135deg, ${theme.primaryHex}15 0%, #0f172a 100%)`,
+            ? 'linear-gradient(135deg, #f4efe5 0%, #ffffff 100%)'
+            : `linear-gradient(135deg, ${theme.primaryHex}20 0%, #181d19 100%)`,
         }}
       >
         <div className="flex items-center gap-3.5">
           <div
             className="w-12 h-12 rounded-xl flex items-center justify-center border shadow-md"
             style={{
-              backgroundColor: `${theme.primaryHex}20`,
-              borderColor: `${theme.primaryHex}40`,
+              backgroundColor: `${theme.primaryHex}25`,
+              borderColor: `${theme.primaryHex}50`,
             }}
           >
-            <Trophy className="w-6 h-6 text-yellow-400" />
+            <Trophy className="w-6 h-6" style={{ color: theme.primaryHex }} />
           </div>
           <div>
             <div
@@ -99,8 +99,8 @@ export const AlgorithmComparisonView: React.FC<Props> = ({
           onClick={exportCSV}
           className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-colors shadow-md border ${
             theme.isLight
-              ? 'bg-white hover:bg-slate-50 text-indigo-700 border-indigo-200'
-              : 'bg-slate-800 hover:bg-slate-700 text-white border-slate-700'
+              ? 'bg-[#faf7f0] hover:bg-[#ede6d9] text-[#40392f] border-[#d1c8b4]'
+              : 'bg-[#222a24] hover:bg-[#2b352f] text-[#ece6da] border-[#465248]'
           }`}
         >
           <FileSpreadsheet className="w-4 h-4" style={{ color: theme.primaryHex }} />
@@ -112,7 +112,7 @@ export const AlgorithmComparisonView: React.FC<Props> = ({
       <div className={`${theme.bgCard} ${theme.borderCard} border rounded-2xl p-5 shadow-2xl backdrop-blur-md transition-all`}>
         <h3 className={`font-semibold ${theme.textTitle} text-sm tracking-wide uppercase mb-4 flex items-center justify-between`}>
           <span>Comparative Seek Efficiency (Relative to Max Movement)</span>
-          <span className={`text-xs ${theme.textMuted} font-normal`}>Click any row to view trace</span>
+          <span className={`text-xs ${theme.textMuted} font-normal`}>Click any row to simulate</span>
         </h3>
 
         <div className="flex flex-col gap-3">
@@ -127,13 +127,13 @@ export const AlgorithmComparisonView: React.FC<Props> = ({
                 className={`group p-3 rounded-xl border transition-all cursor-pointer ${
                   isWinner
                     ? theme.isLight
-                      ? 'bg-indigo-50/80 border-indigo-300'
-                      : `${theme.bgCardSub} border-cyan-500/40`
+                      ? 'bg-[#f4efe5] border-[#cec88a]'
+                      : `${theme.bgCardSub} border-[#cec88a]/50`
                     : theme.isLight
-                    ? 'bg-slate-50 border-slate-200 hover:border-slate-300'
-                    : 'bg-slate-950/50 border-slate-800/80 hover:border-slate-700'
+                    ? 'bg-[#faf7f0] border-[#ded5c2] hover:border-[#bcb096]'
+                    : 'bg-[#181d19]/80 border-[#465248]/60 hover:border-[#7a7c64]'
                 }`}
-                style={isWinner ? { borderColor: `${theme.primaryHex}60` } : {}}
+                style={isWinner ? { borderColor: `${theme.primaryHex}80` } : {}}
               >
                 <div className="flex items-center justify-between text-xs font-mono mb-1.5">
                   <div className="flex items-center gap-2">
@@ -144,9 +144,9 @@ export const AlgorithmComparisonView: React.FC<Props> = ({
                       <span
                         className="px-2 py-0.2 rounded-full text-[10px] font-bold border"
                         style={{
-                          backgroundColor: `${theme.primaryHex}20`,
+                          backgroundColor: `${theme.primaryHex}25`,
                           color: theme.primaryHex,
-                          borderColor: `${theme.primaryHex}40`,
+                          borderColor: `${theme.primaryHex}50`,
                         }}
                       >
                         ★ BEST (Rank 1)
@@ -162,14 +162,14 @@ export const AlgorithmComparisonView: React.FC<Props> = ({
                 </div>
 
                 {/* Bar */}
-                <div className={`w-full h-3 rounded-full overflow-hidden p-0.5 ${theme.isLight ? 'bg-slate-200' : 'bg-slate-800'}`}>
+                <div className={`w-full h-3 rounded-full overflow-hidden p-0.5 ${theme.isLight ? 'bg-[#d6cdbd]' : 'bg-[#121714]'}`}>
                   <div
                     className="h-full rounded-full transition-all duration-700 shadow-sm"
                     style={{
                       width: `${pct}%`,
                       background: isWinner
                         ? `linear-gradient(90deg, ${theme.primaryHex}, ${theme.secondaryHex})`
-                        : `linear-gradient(90deg, ${theme.isLight ? '#94a3b8' : '#475569'}, ${theme.primaryHex})`,
+                        : `linear-gradient(90deg, #465248, ${theme.secondaryHex})`,
                     }}
                   />
                 </div>
@@ -204,7 +204,7 @@ export const AlgorithmComparisonView: React.FC<Props> = ({
                 key={res.name}
                 onClick={() => onSelectAlgorithm(res.name)}
                 className={`cursor-pointer transition-colors ${
-                  theme.isLight ? 'hover:bg-slate-100/70' : 'hover:bg-slate-800/40'
+                  theme.isLight ? 'hover:bg-[#f0e9dc]' : 'hover:bg-[#2b352f]/50'
                 }`}
               >
                 <td className="py-2.5 px-3 font-bold" style={{ color: theme.primaryHex }}>#{res.rank}</td>
@@ -218,12 +218,12 @@ export const AlgorithmComparisonView: React.FC<Props> = ({
                   <span
                     className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
                       res.starvationRisk === 'None'
-                        ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                        ? 'bg-[#7a7c64]/25 text-[#cec88a] border-[#7a7c64]/40'
                         : res.starvationRisk === 'Low'
-                        ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
+                        ? 'bg-[#7a7c64]/15 text-[#ded7c8] border-[#7a7c64]/30'
                         : res.starvationRisk === 'Moderate'
-                        ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
-                        : 'bg-red-500/10 text-red-400 border-red-500/20'
+                        ? 'bg-[#bcb096]/20 text-[#cec88a] border-[#bcb096]/40'
+                        : 'bg-[#a85b4d]/25 text-[#e69b8f] border-[#a85b4d]/40'
                     }`}
                   >
                     {res.starvationRisk}

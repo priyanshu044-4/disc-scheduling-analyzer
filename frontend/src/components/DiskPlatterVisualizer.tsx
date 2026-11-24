@@ -67,8 +67,8 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
         <div
           className={`text-xs font-mono px-3 py-1 rounded-full border ${
             theme.isLight
-              ? 'bg-slate-100 border-slate-300 text-slate-800'
-              : 'bg-slate-900 border-slate-700 text-slate-200'
+              ? 'bg-[#f4efe5] border-[#d1c8b4] text-[#40392f]'
+              : 'bg-[#181f1a] border-[#465248] text-[#ece6da]'
           }`}
         >
           Cylinder: <span className="font-bold text-sm" style={{ color: theme.primaryHex }}>{currentCylinder}</span> / {config.totalCylinders - 1}
@@ -80,17 +80,17 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
         <svg viewBox="0 0 460 460" className="w-full h-full drop-shadow-2xl">
           <defs>
             <radialGradient id="platterGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#0f172a" />
-              <stop offset="35%" stopColor="#334155" />
-              <stop offset="65%" stopColor="#1e293b" />
-              <stop offset="85%" stopColor="#475569" />
-              <stop offset="100%" stopColor="#0f172a" />
+              <stop offset="0%" stopColor="#141a16" />
+              <stop offset="35%" stopColor="#364239" />
+              <stop offset="65%" stopColor="#252e27" />
+              <stop offset="85%" stopColor="#465449" />
+              <stop offset="100%" stopColor="#141a16" />
             </radialGradient>
 
             <linearGradient id="armGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#94a3b8" />
-              <stop offset="50%" stopColor="#cbd5e1" />
-              <stop offset="100%" stopColor="#64748b" />
+              <stop offset="0%" stopColor="#bcb096" />
+              <stop offset="50%" stopColor="#ded7c8" />
+              <stop offset="100%" stopColor="#7a7c64" />
             </linearGradient>
 
             <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
@@ -100,18 +100,44 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
           </defs>
 
           {/* HDD Chassis Base */}
-          <rect x="20" y="20" width="420" height="420" rx="30" fill="#090d16" stroke="#1e293b" strokeWidth="4" />
-          <rect x="28" y="28" width="404" height="404" rx="24" fill="none" stroke="#334155" strokeWidth="1" opacity="0.4" />
+          <rect
+            x="20"
+            y="20"
+            width="420"
+            height="420"
+            rx="30"
+            fill={theme.isLight ? '#eae4d6' : '#111713'}
+            stroke={theme.isLight ? '#c8bfae' : '#2b362e'}
+            strokeWidth="4"
+          />
+          <rect
+            x="28"
+            y="28"
+            width="404"
+            height="404"
+            rx="24"
+            fill="none"
+            stroke={theme.isLight ? '#d6cdbd' : '#3e4e42'}
+            strokeWidth="1"
+            opacity="0.4"
+          />
 
           {/* Mounting Screws */}
-          <circle cx="45" cy="45" r="7" fill="#334155" stroke="#475569" />
-          <circle cx="415" cy="45" r="7" fill="#334155" stroke="#475569" />
-          <circle cx="45" cy="415" r="7" fill="#334155" stroke="#475569" />
-          <circle cx="415" cy="415" r="7" fill="#334155" stroke="#475569" />
+          <circle cx="45" cy="45" r="7" fill="#465248" stroke="#7a7c64" />
+          <circle cx="415" cy="45" r="7" fill="#465248" stroke="#7a7c64" />
+          <circle cx="45" cy="415" r="7" fill="#465248" stroke="#7a7c64" />
+          <circle cx="415" cy="415" r="7" fill="#465248" stroke="#7a7c64" />
 
           {/* Rotating Platter */}
           <g transform={`rotate(${rotation} ${platterCenterX} ${platterCenterY})`}>
-            <circle cx={platterCenterX} cy={platterCenterY} r={outerRadius + 8} fill="#1e293b" stroke="#475569" strokeWidth="2" />
+            <circle
+              cx={platterCenterX}
+              cy={platterCenterY}
+              r={outerRadius + 8}
+              fill="#1d2520"
+              stroke="#465248"
+              strokeWidth="2"
+            />
             <circle cx={platterCenterX} cy={platterCenterY} r={outerRadius} fill="url(#platterGrad)" />
 
             {[0.2, 0.4, 0.6, 0.8, 1.0].map((frac, i) => (
@@ -121,7 +147,7 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
                 cy={platterCenterY}
                 r={innerRadius + frac * (outerRadius - innerRadius)}
                 fill="none"
-                stroke="#64748b"
+                stroke="#7a7c64"
                 strokeWidth="0.8"
                 opacity="0.35"
                 strokeDasharray="4 6"
@@ -130,8 +156,8 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
 
             <path
               d={`M ${platterCenterX} ${platterCenterY} L ${platterCenterX + outerRadius} ${platterCenterY - 30} A ${outerRadius} ${outerRadius} 0 0 1 ${platterCenterX + 30} ${platterCenterY + outerRadius} Z`}
-              fill="#ffffff"
-              opacity="0.04"
+              fill="#cec88a"
+              opacity="0.05"
             />
           </g>
 
@@ -143,14 +169,14 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
             fill="none"
             stroke={theme.primaryHex}
             strokeWidth="3.5"
-            opacity="0.9"
+            opacity="0.95"
             filter="url(#glow)"
           />
 
           {/* Central Spindle Motor */}
-          <circle cx={platterCenterX} cy={platterCenterY} r={innerRadius - 20} fill="#1e293b" stroke="#64748b" strokeWidth="4" />
-          <circle cx={platterCenterX} cy={platterCenterY} r="25" fill="#475569" stroke="#94a3b8" strokeWidth="2" />
-          <circle cx={platterCenterX} cy={platterCenterY} r="8" fill="#0f172a" />
+          <circle cx={platterCenterX} cy={platterCenterY} r={innerRadius - 20} fill="#1d2520" stroke="#7a7c64" strokeWidth="4" />
+          <circle cx={platterCenterX} cy={platterCenterY} r="25" fill="#364239" stroke="#bcb096" strokeWidth="2" />
+          <circle cx={platterCenterX} cy={platterCenterY} r="8" fill="#111713" />
 
           {[0, 60, 120, 180, 240, 300].map((deg, i) => {
             const rad = (deg * Math.PI) / 180;
@@ -160,16 +186,18 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
                 cx={platterCenterX + 16 * Math.cos(rad)}
                 cy={platterCenterY + 16 * Math.sin(rad)}
                 r="2.5"
-                fill="#cbd5e1"
+                fill="#cec88a"
               />
             );
           })}
 
-          {/* Actuator Voice Coil Assembly */}
-          <path d="M 40 40 Q 90 25 120 70 L 100 110 Q 60 70 40 40 Z" fill="#1e293b" stroke="#334155" strokeWidth="2" />
-          <circle cx={pivotX} cy={pivotY} r="24" fill="#1e293b" stroke="#64748b" strokeWidth="3" />
-          <circle cx={pivotX} cy={pivotY} r="14" fill="#475569" />
-          <circle cx={pivotX} cy={pivotY} r="6" fill="#0f172a" />
+          {/* Actuator Voice Coil Magnet Assembly */}
+          <path d="M 40 40 Q 90 25 120 70 L 100 110 Q 60 70 40 40 Z" fill="#242c26" stroke="#465248" strokeWidth="2" />
+
+          {/* Actuator Pivot Axis */}
+          <circle cx={pivotX} cy={pivotY} r="24" fill="#1d2520" stroke="#7a7c64" strokeWidth="3" />
+          <circle cx={pivotX} cy={pivotY} r="14" fill="#364239" />
+          <circle cx={pivotX} cy={pivotY} r="6" fill="#111713" />
 
           {/* Moving Actuator Arm */}
           <g
@@ -179,12 +207,12 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
             <polygon
               points={`${pivotX},${pivotY - 8} ${pivotX + 175},${pivotY + 130} ${pivotX + 178},${pivotY + 135} ${pivotX},${pivotY + 8}`}
               fill="url(#armGrad)"
-              stroke="#475569"
+              stroke="#465248"
               strokeWidth="1.5"
             />
             <polygon
               points={`${pivotX},${pivotY - 8} ${pivotX - 25},${pivotY - 18} ${pivotX - 22},${pivotY + 18} ${pivotX},${pivotY + 8}`}
-              fill="#334155"
+              fill="#242c26"
             />
 
             <rect
@@ -207,7 +235,7 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
             />
           </g>
 
-          <text x="35" y="430" fill="#64748b" fontSize="12" fontFamily="monospace">
+          <text x="35" y="430" fill="#7a7c64" fontSize="12" fontFamily="monospace">
             SPEED: {config.rpm} RPM
           </text>
           <text x="310" y="430" fill={theme.primaryHex} fontSize="12" fontFamily="monospace" fontWeight="bold">
@@ -229,7 +257,7 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
             value={currentStepIndex}
             onChange={(e) => onStepChange(Number(e.target.value))}
             style={{ accentColor: theme.primaryHex }}
-            className="flex-1 h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer"
+            className="flex-1 h-2 bg-[#2b352f] rounded-lg appearance-none cursor-pointer"
           />
           <span className="text-xs font-mono font-bold min-w-14 text-right" style={{ color: theme.primaryHex }}>
             {currentStepIndex > 0 ? `+${currentStep?.seekDistance} cyl` : 'Start'}
@@ -243,8 +271,8 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
               title="Reset to Start"
               className={`p-1.5 rounded-lg border transition-colors ${
                 theme.isLight
-                  ? 'bg-slate-200 hover:bg-slate-300 text-slate-700 border-slate-300'
-                  : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                  ? 'bg-[#e5ddd0] hover:bg-[#dbd1c1] text-[#40392f] border-[#d1c8b4]'
+                  : 'bg-[#2b352f] hover:bg-[#36423b] text-[#ded7c8] border-[#465248]'
               }`}
             >
               <RotateCcw className="w-4 h-4" />
@@ -255,8 +283,8 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
               title="Previous Step"
               className={`p-1.5 rounded-lg border transition-colors disabled:opacity-40 ${
                 theme.isLight
-                  ? 'bg-slate-200 hover:bg-slate-300 text-slate-700 border-slate-300'
-                  : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                  ? 'bg-[#e5ddd0] hover:bg-[#dbd1c1] text-[#40392f] border-[#d1c8b4]'
+                  : 'bg-[#2b352f] hover:bg-[#36423b] text-[#ded7c8] border-[#465248]'
               }`}
             >
               <SkipBack className="w-4 h-4" />
@@ -264,10 +292,14 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
             <button
               onClick={onPlayToggle}
               title={isPlaying ? 'Pause' : 'Play Simulation'}
-              style={{ backgroundColor: theme.primaryHex }}
-              className="px-4 py-1.5 rounded-lg text-white font-bold flex items-center gap-1.5 transition-all shadow-lg hover:opacity-90"
+              style={{ backgroundColor: theme.primaryHex, color: theme.primaryTextHex }}
+              className="px-4 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition-all shadow-lg hover:opacity-90"
             >
-              {isPlaying ? <Pause className="w-4 h-4 fill-white" /> : <Play className="w-4 h-4 fill-white" />}
+              {isPlaying ? (
+                <Pause className="w-4 h-4" style={{ fill: theme.primaryTextHex }} />
+              ) : (
+                <Play className="w-4 h-4" style={{ fill: theme.primaryTextHex }} />
+              )}
               <span className="text-xs uppercase">{isPlaying ? 'Pause' : 'Play'}</span>
             </button>
             <button
@@ -276,8 +308,8 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
               title="Next Step"
               className={`p-1.5 rounded-lg border transition-colors disabled:opacity-40 ${
                 theme.isLight
-                  ? 'bg-slate-200 hover:bg-slate-300 text-slate-700 border-slate-300'
-                  : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                  ? 'bg-[#e5ddd0] hover:bg-[#dbd1c1] text-[#40392f] border-[#d1c8b4]'
+                  : 'bg-[#2b352f] hover:bg-[#36423b] text-[#ded7c8] border-[#465248]'
               }`}
             >
               <SkipForward className="w-4 h-4" />
@@ -285,16 +317,16 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
           </div>
 
           {/* Speed Selector */}
-          <div className={`flex items-center gap-1 p-1 rounded-lg border ${theme.isLight ? 'bg-slate-100 border-slate-300' : 'bg-slate-800/80 border-slate-700/50'}`}>
+          <div className={`flex items-center gap-1 p-1 rounded-lg border ${theme.isLight ? 'bg-[#e5ddd0] border-[#d1c8b4]' : 'bg-[#19201a] border-[#465248]/60'}`}>
             {[0.5, 1, 2, 4].map((spd) => (
               <button
                 key={spd}
                 onClick={() => onSpeedChange(spd)}
-                style={playbackSpeed === spd ? { backgroundColor: theme.primaryHex, color: '#ffffff' } : {}}
+                style={playbackSpeed === spd ? { backgroundColor: theme.primaryHex, color: theme.primaryTextHex } : {}}
                 className={`px-2 py-0.5 text-[11px] rounded font-mono font-medium transition-colors ${
                   playbackSpeed === spd
                     ? 'font-bold shadow'
-                    : `${theme.textMuted} hover:text-white`
+                    : `${theme.textMuted} hover:text-[#ece6da]`
                 }`}
               >
                 {spd}x

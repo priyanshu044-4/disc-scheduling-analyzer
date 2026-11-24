@@ -9,15 +9,15 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  themeId: 'cyber-violet',
-  theme: THEMES['cyber-violet'],
+  themeId: 'rustic-moss',
+  theme: THEMES['rustic-moss'],
   setThemeId: () => {},
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [themeId, setThemeId] = useState<ThemeId>(() => {
     const saved = localStorage.getItem('disc-scheduler-theme') as ThemeId;
-    return saved && THEMES[saved] ? saved : 'cyber-violet';
+    return saved && THEMES[saved] ? saved : 'rustic-moss';
   });
 
   const theme = THEMES[themeId] || THEMES['cyber-violet'];
