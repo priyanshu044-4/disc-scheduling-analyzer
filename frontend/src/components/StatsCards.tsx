@@ -1,6 +1,7 @@
 import React from 'react';
 import type { AlgorithmResult, DiskConfig } from '../types';
 import { Activity, Clock, ShieldAlert, Cpu, Gauge, Zap } from 'lucide-react';
+import { useTheme } from '../ThemeContext';
 
 interface Props {
   result: AlgorithmResult;
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export const StatsCards: React.FC<Props> = ({ result, config }) => {
+  const { theme } = useTheme();
+
   const getStarvationBadge = (risk: string) => {
     switch (risk) {
       case 'None':
@@ -26,82 +29,82 @@ export const StatsCards: React.FC<Props> = ({ result, config }) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 w-full">
       {/* 1. Total Head Movement */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between">
-        <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+      <div className={`${theme.bgCard} ${theme.borderCard} border rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between transition-all`}>
+        <div className={`flex items-center justify-between ${theme.textMuted} text-xs mb-1`}>
           <span>Total Seek</span>
-          <Activity className="w-4 h-4 text-cyan-400" />
+          <Activity className="w-4 h-4" style={{ color: theme.primaryHex }} />
         </div>
-        <div className="text-2xl font-bold font-mono text-cyan-300">
+        <div className="text-2xl font-bold font-mono" style={{ color: theme.primaryHex }}>
           {result.totalHeadMovement}{' '}
-          <span className="text-xs font-normal text-slate-500">cyl</span>
+          <span className="text-xs font-normal opacity-60">cyl</span>
         </div>
-        <div className="text-[11px] text-slate-400 mt-1 font-mono">
+        <div className={`text-[11px] ${theme.textMuted} mt-1 font-mono`}>
           Avg: {result.avgSeekDistance.toFixed(1)} cyl/req
         </div>
       </div>
 
       {/* 2. Est. Seek Time */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between">
-        <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+      <div className={`${theme.bgCard} ${theme.borderCard} border rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between transition-all`}>
+        <div className={`flex items-center justify-between ${theme.textMuted} text-xs mb-1`}>
           <span>Seek Time</span>
           <Clock className="w-4 h-4 text-blue-400" />
         </div>
-        <div className="text-2xl font-bold font-mono text-blue-300">
+        <div className={`text-2xl font-bold font-mono ${theme.textTitle}`}>
           {result.estSeekTimeMs.toFixed(2)}{' '}
-          <span className="text-xs font-normal text-slate-500">ms</span>
+          <span className="text-xs font-normal opacity-60">ms</span>
         </div>
-        <div className="text-[11px] text-slate-400 mt-1">
+        <div className={`text-[11px] ${theme.textMuted} mt-1`}>
           Mechanical arm travel
         </div>
       </div>
 
       {/* 3. Rotational Latency */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between">
-        <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+      <div className={`${theme.bgCard} ${theme.borderCard} border rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between transition-all`}>
+        <div className={`flex items-center justify-between ${theme.textMuted} text-xs mb-1`}>
           <span>Rot. Latency</span>
           <Gauge className="w-4 h-4 text-indigo-400" />
         </div>
-        <div className="text-2xl font-bold font-mono text-indigo-300">
+        <div className={`text-2xl font-bold font-mono ${theme.textTitle}`}>
           {result.avgRotationalLatencyMs.toFixed(2)}{' '}
-          <span className="text-xs font-normal text-slate-500">ms</span>
+          <span className="text-xs font-normal opacity-60">ms</span>
         </div>
-        <div className="text-[11px] text-slate-400 mt-1 font-mono">
+        <div className={`text-[11px] ${theme.textMuted} mt-1 font-mono`}>
           @ {config.rpm} RPM
         </div>
       </div>
 
       {/* 4. Total Service Time */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between">
-        <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+      <div className={`${theme.bgCard} ${theme.borderCard} border rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between transition-all`}>
+        <div className={`flex items-center justify-between ${theme.textMuted} text-xs mb-1`}>
           <span>Service Time</span>
           <Zap className="w-4 h-4 text-amber-400" />
         </div>
-        <div className="text-2xl font-bold font-mono text-amber-300">
+        <div className="text-2xl font-bold font-mono text-amber-400">
           {result.totalServiceTimeMs.toFixed(2)}{' '}
-          <span className="text-xs font-normal text-slate-500">ms</span>
+          <span className="text-xs font-normal opacity-60">ms</span>
         </div>
-        <div className="text-[11px] text-slate-400 mt-1">
+        <div className={`text-[11px] ${theme.textMuted} mt-1`}>
           Seek + Rot + Transfer
         </div>
       </div>
 
       {/* 5. Jitter / StdDev */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between">
-        <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+      <div className={`${theme.bgCard} ${theme.borderCard} border rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between transition-all`}>
+        <div className={`flex items-center justify-between ${theme.textMuted} text-xs mb-1`}>
           <span>Variance (σ)</span>
-          <Cpu className="w-4 h-4 text-purple-400" />
+          <Cpu className="w-4 h-4" style={{ color: theme.secondaryHex }} />
         </div>
-        <div className="text-2xl font-bold font-mono text-purple-300">
+        <div className="text-2xl font-bold font-mono" style={{ color: theme.secondaryHex }}>
           ±{result.stdDevSeek.toFixed(1)}
         </div>
-        <div className="text-[11px] text-slate-400 mt-1 font-mono">
+        <div className={`text-[11px] ${theme.textMuted} mt-1 font-mono`}>
           CV: {result.coefficientOfVariation.toFixed(2)}
         </div>
       </div>
 
       {/* 6. Starvation Risk */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between">
-        <div className="flex items-center justify-between text-slate-400 text-xs mb-1">
+      <div className={`${theme.bgCard} ${theme.borderCard} border rounded-xl p-3.5 shadow-lg backdrop-blur flex flex-col justify-between transition-all`}>
+        <div className={`flex items-center justify-between ${theme.textMuted} text-xs mb-1`}>
           <span>Starvation</span>
           <ShieldAlert className="w-4 h-4 text-emerald-400" />
         </div>
@@ -114,7 +117,7 @@ export const StatsCards: React.FC<Props> = ({ result, config }) => {
             {result.starvationRisk}
           </span>
         </div>
-        <div className="text-[11px] text-slate-400 mt-1">
+        <div className={`text-[11px] ${theme.textMuted} mt-1`}>
           {result.name === 'SSTF'
             ? 'Prone under load'
             : result.name === 'C-SCAN' || result.name === 'C-LOOK'

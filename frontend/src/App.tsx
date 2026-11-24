@@ -7,6 +7,8 @@ import { TrajectoryChart } from './components/TrajectoryChart';
 import { PlatterTrackBar } from './components/PlatterTrackBar';
 import { StatsCards } from './components/StatsCards';
 import { AlgorithmComparisonView } from './components/AlgorithmComparisonView';
+import { ThemeSelector } from './components/ThemeSelector';
+import { ThemeProvider, useTheme } from './ThemeContext';
 import {
   Layers,
   BarChart3,
@@ -17,7 +19,8 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-export function App() {
+function AppContent() {
+  const { theme } = useTheme();
   const [config, setConfig] = useState<DiskConfig>(DEFAULT_CONFIG);
   const [requests, setRequests] = useState<number[]>(PRESETS[0].requests);
   const [activeTab, setActiveTab] = useState<'simulate' | 'compare' | 'theory'>('simulate');
@@ -81,28 +84,32 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300`}>
       {/* Top Navbar */}
-      <header className="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-md sticky top-0 z-50">
+      <header className={`border-b ${theme.borderSub} ${theme.bgNavbar} backdrop-blur-md sticky top-0 z-50 transition-colors`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-bold text-slate-950 shadow-lg shadow-cyan-500/20">
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white shadow-lg"
+              style={{ backgroundColor: theme.primaryHex }}
+            >
               <Cpu className="w-5 h-5" />
             </div>
             <div>
-              <span className="font-bold text-white text-base tracking-tight">DiscSched</span>
-              <span className="text-cyan-400 font-bold text-base">.analyzer</span>
+              <span className={`font-bold ${theme.textTitle} text-base tracking-tight`}>DiscSched</span>
+              <span className="font-bold text-base" style={{ color: theme.primaryHex }}>.analyzer</span>
             </div>
           </div>
 
           {/* Navigation Tabs */}
-          <nav className="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
+          <nav className={`flex items-center gap-1 p-1 rounded-xl border ${theme.borderSub} ${theme.isLight ? 'bg-slate-100' : 'bg-slate-900/90'}`}>
             <button
               onClick={() => setActiveTab('simulate')}
+              style={activeTab === 'simulate' ? { backgroundColor: theme.primaryHex, color: '#ffffff' } : {}}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
                 activeTab === 'simulate'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20 font-bold'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'shadow-md font-bold'
+                  : `${theme.textMuted} hover:${theme.textTitle}`
               }`}
             >
               <Layers className="w-4 h-4" />
@@ -113,10 +120,11 @@ export function App() {
                 setActiveTab('compare');
                 triggerConfetti();
               }}
+              style={activeTab === 'compare' ? { backgroundColor: theme.primaryHex, color: '#ffffff' } : {}}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
                 activeTab === 'compare'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20 font-bold'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'shadow-md font-bold'
+                  : `${theme.textMuted} hover:${theme.textTitle}`
               }`}
             >
               <BarChart3 className="w-4 h-4" />
@@ -124,10 +132,11 @@ export function App() {
             </button>
             <button
               onClick={() => setActiveTab('theory')}
+              style={activeTab === 'theory' ? { backgroundColor: theme.primaryHex, color: '#ffffff' } : {}}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
                 activeTab === 'theory'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20 font-bold'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'shadow-md font-bold'
+                  : `${theme.textMuted} hover:${theme.textTitle}`
               }`}
             >
               <BookOpen className="w-4 h-4" />
@@ -135,13 +144,18 @@ export function App() {
             </button>
           </nav>
 
-          {/* External Links */}
-          <div className="flex items-center gap-2">
+          {/* Theme Selector & GitHub Links */}
+          <div className="flex items-center gap-2.5">
+            <ThemeSelector />
             <a
               href="https://github.com/priyanshu044-4/disc-scheduling-analyzer"
               target="_blank"
               rel="noreferrer"
-              className="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition-colors border border-slate-700/60 flex items-center gap-1.5 text-xs font-medium"
+              className={`p-2 rounded-lg border transition-colors flex items-center gap-1.5 text-xs font-medium ${
+                theme.isLight
+                  ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300'
+                  : 'bg-slate-800/80 hover:bg-slate-700 text-slate-300 border-slate-700/60'
+              }`}
               title="View on GitHub"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -155,7 +169,6 @@ export function App() {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 flex flex-col gap-6">
-        {/* Global Workload & Configuration Header */}
         <HeaderAndControls
           config={config}
           onConfigChange={setConfig}
@@ -167,30 +180,36 @@ export function App() {
         {activeTab === 'simulate' && (
           <div className="flex flex-col gap-6">
             {/* Algorithm Selector Bar */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-3 shadow-xl flex items-center justify-between flex-wrap gap-2">
+            <div className={`${theme.bgCard} ${theme.borderCard} border rounded-2xl p-3 shadow-xl flex items-center justify-between flex-wrap gap-2 transition-all`}>
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider pl-2 pr-1">
+                <span className={`text-xs font-semibold ${theme.textMuted} uppercase tracking-wider pl-2 pr-1`}>
                   Algorithm:
                 </span>
                 {(['FCFS', 'SSTF', 'SCAN', 'C-SCAN', 'LOOK', 'C-LOOK', 'F-SCAN'] as AlgorithmType[]).map(
-                  (algo) => (
-                    <button
-                      key={algo}
-                      onClick={() => handleAlgoSelect(algo)}
-                      className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all ${
-                        selectedAlgo === algo
-                          ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/30 scale-105'
-                          : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white'
-                      }`}
-                    >
-                      {algo}
-                    </button>
-                  )
+                  (algo) => {
+                    const isSelected = selectedAlgo === algo;
+                    return (
+                      <button
+                        key={algo}
+                        onClick={() => handleAlgoSelect(algo)}
+                        style={isSelected ? { backgroundColor: theme.primaryHex, color: '#ffffff' } : {}}
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all border ${
+                          isSelected
+                            ? 'shadow-lg scale-105 border-transparent'
+                            : theme.isLight
+                            ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
+                            : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white border-slate-700'
+                        }`}
+                      >
+                        {algo}
+                      </button>
+                    );
+                  }
                 )}
               </div>
 
-              <div className="text-xs font-mono text-cyan-300 pr-2">
-                Total Seek: <strong className="text-white text-sm">{currentResult.totalHeadMovement}</strong> cylinders
+              <div className="text-xs font-mono pr-2" style={{ color: theme.primaryHex }}>
+                Total Seek: <strong className={`${theme.textTitle} text-sm`}>{currentResult.totalHeadMovement}</strong> cylinders
               </div>
             </div>
 
@@ -235,19 +254,19 @@ export function App() {
             <StatsCards result={currentResult} config={config} />
 
             {/* Step-by-Step Traversal Trace Table */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-2xl backdrop-blur-md overflow-x-auto">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
-                <h3 className="font-semibold text-slate-200 text-sm tracking-wide uppercase">
+            <div className={`${theme.bgCard} ${theme.borderCard} border rounded-2xl p-5 shadow-2xl backdrop-blur-md overflow-x-auto transition-all`}>
+              <div className={`flex items-center justify-between pb-3 border-b ${theme.borderSub} mb-3`}>
+                <h3 className={`font-semibold ${theme.textTitle} text-sm tracking-wide uppercase`}>
                   Step-by-Step Traversal Log ({currentResult.name})
                 </h3>
-                <span className="text-xs font-mono text-slate-400">
+                <span className={`text-xs font-mono ${theme.textMuted}`}>
                   Initial Head: {config.initialHead}
                 </span>
               </div>
 
               <table className="w-full text-left text-xs font-mono border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400">
+                  <tr className={`border-b ${theme.borderSub} ${theme.textMuted}`}>
                     <th className="py-2 px-3">Step #</th>
                     <th className="py-2 px-3">From Cylinder</th>
                     <th className="py-2 px-3">To Cylinder</th>
@@ -256,7 +275,7 @@ export function App() {
                     <th className="py-2 px-3">Est. Time (ms)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/50">
+                <tbody className={`divide-y ${theme.borderSub} ${theme.textBody}`}>
                   {currentResult.steps.map((st, i) => {
                     const isActive = i + 1 === currentStepIndex;
                     const timeMs = config.baseOverhead + st.seekDistance * config.seekPerCylinder;
@@ -264,16 +283,21 @@ export function App() {
                       <tr
                         key={i}
                         onClick={() => setCurrentStepIndex(i + 1)}
+                        style={isActive ? { backgroundColor: `${theme.primaryHex}20` } : {}}
                         className={`cursor-pointer transition-colors ${
                           isActive
-                            ? 'bg-cyan-500/15 text-cyan-200 font-bold'
-                            : 'hover:bg-slate-800/40 text-slate-300'
+                            ? 'font-bold'
+                            : theme.isLight
+                            ? 'hover:bg-slate-100/70'
+                            : 'hover:bg-slate-800/40'
                         }`}
                       >
-                        <td className="py-2 px-3 text-cyan-400">Step {st.stepNum}</td>
+                        <td className="py-2 px-3 font-semibold" style={{ color: theme.primaryHex }}>
+                          Step {st.stepNum}
+                        </td>
                         <td className="py-2 px-3">{st.fromCylinder}</td>
-                        <td className="py-2 px-3 font-bold text-white">{st.toCylinder}</td>
-                        <td className="py-2 px-3 text-cyan-300">+{st.seekDistance} cyl</td>
+                        <td className={`py-2 px-3 font-bold ${theme.textTitle}`}>{st.toCylinder}</td>
+                        <td className="py-2 px-3" style={{ color: theme.primaryHex }}>+{st.seekDistance} cyl</td>
                         <td className="py-2 px-3">
                           <span
                             className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold border ${
@@ -285,7 +309,7 @@ export function App() {
                             {st.isService ? 'Service I/O' : 'Boundary Swing'}
                           </span>
                         </td>
-                        <td className="py-2 px-3 text-slate-400">{timeMs.toFixed(3)} ms</td>
+                        <td className={`py-2 px-3 ${theme.textMuted}`}>{timeMs.toFixed(3)} ms</td>
                       </tr>
                     );
                   })}
@@ -306,96 +330,93 @@ export function App() {
 
         {/* Tab 3: Theory & Viva Guide */}
         {activeTab === 'theory' && (
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-2xl backdrop-blur-md flex flex-col gap-6">
-            <div className="border-b border-slate-800 pb-4">
-              <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-cyan-400" />
+          <div className={`${theme.bgCard} ${theme.borderCard} border rounded-2xl p-6 shadow-2xl backdrop-blur-md flex flex-col gap-6 transition-all`}>
+            <div className={`border-b ${theme.borderSub} pb-4`}>
+              <h2 className={`text-xl font-bold ${theme.textTitle} flex items-center gap-2`}>
+                <BookOpen className="w-5 h-5" style={{ color: theme.primaryHex }} />
                 Advanced Operating Systems — Disc Scheduling Theory
               </h2>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className={`text-xs ${theme.textMuted} mt-1`}>
                 Theoretical foundations, physical timing decomposition, and viva examination answers.
               </p>
             </div>
 
-            {/* Access Time Formula Box */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-xs">
-              <div className="text-cyan-400 font-bold mb-2">Total Disk Access Time Decomposition:</div>
-              <div className="text-slate-300 text-sm">
+            <div className={`${theme.bgCardSub} ${theme.borderSub} p-4 rounded-xl border font-mono text-xs`}>
+              <div className="font-bold mb-2" style={{ color: theme.primaryHex }}>Total Disk Access Time Decomposition:</div>
+              <div className={`${theme.textTitle} text-sm font-semibold`}>
                 T_access = T_seek + T_rotational + T_transfer + T_controller
               </div>
-              <div className="text-slate-500 mt-2 text-[11px] leading-relaxed">
+              <div className={`${theme.textMuted} mt-2 text-[11px] leading-relaxed`}>
                 • <strong>T_seek:</strong> Time to move the actuator arm to target cylinder (dominant mechanical delay).<br />
                 • <strong>T_rotational:</strong> 0.5 × (60,000 / RPM) ms waiting for the sector to spin under head.<br />
                 • <strong>T_transfer:</strong> Sector Size (Bytes) / Transfer Rate (Bytes/ms).
               </div>
             </div>
 
-            {/* Quick Algorithm Reference Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
-                <h3 className="font-bold text-white text-sm mb-1 text-cyan-300">FCFS (First-Come First-Served)</h3>
-                <p className="text-slate-400 leading-relaxed">
+              <div className={`${theme.bgCardSub} ${theme.borderSub} p-4 rounded-xl border`}>
+                <h3 className="font-bold text-sm mb-1" style={{ color: theme.primaryHex }}>FCFS (First-Come First-Served)</h3>
+                <p className={`${theme.textMuted} leading-relaxed`}>
                   Processes requests in strict FIFO order. Guaranteed 100% fair and zero starvation risk, but suffers from severe head thrashing and high seek times.
                 </p>
               </div>
 
-              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
-                <h3 className="font-bold text-white text-sm mb-1 text-cyan-300">SSTF (Shortest Seek Time First)</h3>
-                <p className="text-slate-400 leading-relaxed">
+              <div className={`${theme.bgCardSub} ${theme.borderSub} p-4 rounded-xl border`}>
+                <h3 className="font-bold text-sm mb-1" style={{ color: theme.primaryHex }}>SSTF (Shortest Seek Time First)</h3>
+                <p className={`${theme.textMuted} leading-relaxed`}>
                   Greedily services the closest cylinder to the current head. Drastically reduces seek times but causes severe starvation for requests on distant platter tracks.
                 </p>
               </div>
 
-              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
-                <h3 className="font-bold text-white text-sm mb-1 text-cyan-300">SCAN (Elevator Algorithm)</h3>
-                <p className="text-slate-400 leading-relaxed">
+              <div className={`${theme.bgCardSub} ${theme.borderSub} p-4 rounded-xl border`}>
+                <h3 className="font-bold text-sm mb-1" style={{ color: theme.primaryHex }}>SCAN (Elevator Algorithm)</h3>
+                <p className={`${theme.textMuted} leading-relaxed`}>
                   Head moves in one direction to the disk boundary (0 or Max-1), reverses, and services requests on the return sweep. Prevents starvation and bounds max latency.
                 </p>
               </div>
 
-              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
-                <h3 className="font-bold text-white text-sm mb-1 text-cyan-300">C-SCAN (Circular SCAN)</h3>
-                <p className="text-slate-400 leading-relaxed">
+              <div className={`${theme.bgCardSub} ${theme.borderSub} p-4 rounded-xl border`}>
+                <h3 className="font-bold text-sm mb-1" style={{ color: theme.primaryHex }}>C-SCAN (Circular SCAN)</h3>
+                <p className={`${theme.textMuted} leading-relaxed`}>
                   Provides uniform wait times across all tracks by sweeping to one boundary and immediately jumping back to the opposite boundary without serving on the return jump.
                 </p>
               </div>
 
-              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
-                <h3 className="font-bold text-white text-sm mb-1 text-cyan-300">LOOK & C-LOOK</h3>
-                <p className="text-slate-400 leading-relaxed">
+              <div className={`${theme.bgCardSub} ${theme.borderSub} p-4 rounded-xl border`}>
+                <h3 className="font-bold text-sm mb-1" style={{ color: theme.primaryHex }}>LOOK & C-LOOK</h3>
+                <p className={`${theme.textMuted} leading-relaxed`}>
                   Boundary-optimized variants of SCAN/C-SCAN. The head travels only as far as the last request in that direction, eliminating wasteful travel to unused track edges.
                 </p>
               </div>
 
-              <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
-                <h3 className="font-bold text-white text-sm mb-1 text-cyan-300">F-SCAN (Freeze SCAN)</h3>
-                <p className="text-slate-400 leading-relaxed">
+              <div className={`${theme.bgCardSub} ${theme.borderSub} p-4 rounded-xl border`}>
+                <h3 className="font-bold text-sm mb-1" style={{ color: theme.primaryHex }}>F-SCAN (Freeze SCAN)</h3>
+                <p className={`${theme.textMuted} leading-relaxed`}>
                   Freezes incoming requests into a secondary batch during the active sweep. Prevents continuous dynamic arrivals from delaying opposite-side requests.
                 </p>
               </div>
             </div>
 
-            {/* Viva Q&A Guide */}
-            <div className="border-t border-slate-800 pt-4">
-              <h3 className="font-bold text-white text-sm mb-3 flex items-center gap-2">
+            <div className={`border-t ${theme.borderSub} pt-4`}>
+              <h3 className={`font-bold ${theme.textTitle} text-sm mb-3 flex items-center gap-2`}>
                 <HelpCircle className="w-4 h-4 text-amber-400" />
                 Essential Viva / Oral Exam Questions
               </h3>
               <div className="flex flex-col gap-3 text-xs">
-                <div className="bg-slate-950/80 p-3 rounded-lg border border-slate-800/80">
-                  <strong className="text-cyan-300 block mb-1">
+                <div className={`${theme.bgCardSub} ${theme.borderSub} p-3 rounded-lg border`}>
+                  <strong className="block mb-1" style={{ color: theme.primaryHex }}>
                     Q: Why do Solid-State Drives (SSDs) not use SCAN or LOOK scheduling?
                   </strong>
-                  <span className="text-slate-400">
+                  <span className={theme.textMuted}>
                     SSDs have no physical moving actuator arm or spinning platter. Block access times are near-constant regardless of logical block addressing. SSDs use simple FIFO (noop / none) or mq-deadline schedulers to avoid unnecessary CPU sorting overhead.
                   </span>
                 </div>
 
-                <div className="bg-slate-950/80 p-3 rounded-lg border border-slate-800/80">
-                  <strong className="text-cyan-300 block mb-1">
+                <div className={`${theme.bgCardSub} ${theme.borderSub} p-3 rounded-lg border`}>
+                  <strong className="block mb-1" style={{ color: theme.primaryHex }}>
                     Q: What causes starvation in SSTF?
                   </strong>
-                  <span className="text-slate-400">
+                  <span className={theme.textMuted}>
                     If new I/O requests continuously arrive at tracks near the active head position, the head stays localized within that cluster, causing requests on distant tracks to wait indefinitely.
                   </span>
                 </div>
@@ -406,7 +427,7 @@ export function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950/80 py-5 text-center text-xs text-slate-500">
+      <footer className={`border-t ${theme.borderSub} ${theme.bgNavbar} py-5 text-center text-xs ${theme.textMuted}`}>
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span>
             Disc Scheduling Analyzer & Hardware Simulator — Advanced Operating Systems (AOS) Project
@@ -419,6 +440,14 @@ export function App() {
         </div>
       </footer>
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

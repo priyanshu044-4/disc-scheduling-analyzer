@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { DiskConfig, PresetWorkload } from '../types';
 import { Dices, HardDrive, Sparkles } from 'lucide-react';
+import { useTheme } from '../ThemeContext';
 
 interface Props {
   config: DiskConfig;
@@ -50,6 +51,7 @@ export const HeaderAndControls: React.FC<Props> = ({
   requests,
   onRequestChange,
 }) => {
+  const { theme } = useTheme();
   const [requestText, setRequestText] = useState(requests.join(', '));
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -105,21 +107,35 @@ export const HeaderAndControls: React.FC<Props> = ({
   };
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-2xl backdrop-blur-md flex flex-col gap-4">
+    <div className={`${theme.bgCard} ${theme.borderCard} border rounded-2xl p-5 shadow-2xl backdrop-blur-md flex flex-col gap-4 transition-all`}>
       {/* Top Header Row */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className={`flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b ${theme.borderSub}`}>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center border shadow-md"
+            style={{
+              backgroundColor: `${theme.primaryHex}20`,
+              borderColor: `${theme.primaryHex}40`,
+              color: theme.primaryHex,
+            }}
+          >
             <HardDrive className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+            <h1 className={`text-xl font-bold ${theme.textTitle} tracking-tight flex items-center gap-2`}>
               Disc Scheduling Analyzer
-              <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-mono">
+              <span
+                className="text-xs px-2 py-0.5 rounded-full font-mono border"
+                style={{
+                  backgroundColor: `${theme.primaryHex}20`,
+                  color: theme.primaryHex,
+                  borderColor: `${theme.primaryHex}40`,
+                }}
+              >
                 AOS Simulator
               </span>
             </h1>
-            <p className="text-xs text-slate-400">
+            <p className={`text-xs ${theme.textMuted}`}>
               Interactive Step-by-Step Platter Map, 2D Trajectory Visualizer & Performance Benchmarking
             </p>
           </div>
@@ -127,21 +143,30 @@ export const HeaderAndControls: React.FC<Props> = ({
 
         {/* Preset Selectors */}
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+          <span className={`text-xs font-semibold ${theme.textMuted} uppercase tracking-wider flex items-center gap-1.5`}>
             <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Presets:
           </span>
           {PRESETS.map((p) => (
             <button
               key={p.name}
               onClick={() => handleLoadPreset(p)}
-              className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/80 rounded-lg text-xs font-medium transition-colors"
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+                theme.isLight
+                  ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300'
+                  : 'bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border-slate-700/80'
+              }`}
             >
               {p.name}
             </button>
           ))}
           <button
             onClick={() => handleGenerateRandom(12)}
-            className="px-2.5 py-1.5 bg-cyan-950/60 hover:bg-cyan-900/80 text-cyan-300 border border-cyan-500/30 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors"
+            className="px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors border"
+            style={{
+              backgroundColor: `${theme.primaryHex}20`,
+              color: theme.primaryHex,
+              borderColor: `${theme.primaryHex}40`,
+            }}
           >
             <Dices className="w-3.5 h-3.5" /> Random
           </button>
@@ -151,8 +176,8 @@ export const HeaderAndControls: React.FC<Props> = ({
       {/* Main Workload Parameters Controls */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
         {/* Total Cylinders */}
-        <div className="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3">
-          <label className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
+        <div className={`${theme.bgCardSub} ${theme.borderSub} border rounded-xl p-3`}>
+          <label className={`text-[11px] font-semibold ${theme.textMuted} uppercase tracking-wider block mb-1`}>
             Total Cylinders (0 - {config.totalCylinders - 1})
           </label>
           <input
@@ -168,13 +193,17 @@ export const HeaderAndControls: React.FC<Props> = ({
                 initialHead: Math.min(config.initialHead, val - 1),
               });
             }}
-            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-sm font-mono text-cyan-300 focus:outline-none focus:border-cyan-400"
+            className={`w-full rounded-lg px-3 py-1.5 text-sm font-mono border focus:outline-none ${
+              theme.isLight
+                ? 'bg-white border-slate-300 text-slate-900'
+                : 'bg-slate-900 border-slate-700 text-cyan-300'
+            }`}
           />
         </div>
 
         {/* Initial Head Position */}
-        <div className="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3">
-          <label className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
+        <div className={`${theme.bgCardSub} ${theme.borderSub} border rounded-xl p-3`}>
+          <label className={`text-[11px] font-semibold ${theme.textMuted} uppercase tracking-wider block mb-1`}>
             Initial Head Position
           </label>
           <input
@@ -186,64 +215,78 @@ export const HeaderAndControls: React.FC<Props> = ({
               const val = Math.min(config.totalCylinders - 1, Math.max(0, parseInt(e.target.value) || 0));
               onConfigChange({ ...config, initialHead: val });
             }}
-            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-sm font-mono text-yellow-300 focus:outline-none focus:border-cyan-400"
+            className={`w-full rounded-lg px-3 py-1.5 text-sm font-mono border focus:outline-none ${
+              theme.isLight
+                ? 'bg-white border-slate-300 text-slate-900'
+                : 'bg-slate-900 border-slate-700 text-yellow-300'
+            }`}
           />
         </div>
 
         {/* Sweep Direction */}
-        <div className="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3">
-          <label className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
+        <div className={`${theme.bgCardSub} ${theme.borderSub} border rounded-xl p-3`}>
+          <label className={`text-[11px] font-semibold ${theme.textMuted} uppercase tracking-wider block mb-1`}>
             Sweep Direction
           </label>
           <div className="grid grid-cols-2 gap-1.5 mt-0.5">
             <button
               onClick={() => onConfigChange({ ...config, direction: 'UP' })}
+              style={config.direction === 'UP' ? { backgroundColor: theme.primaryHex, color: '#ffffff' } : {}}
               className={`py-1 text-xs font-semibold rounded-lg border transition-colors ${
                 config.direction === 'UP'
-                  ? 'bg-cyan-500 text-slate-950 border-cyan-400'
+                  ? 'border-transparent shadow'
+                  : theme.isLight
+                  ? 'bg-white text-slate-700 border-slate-300'
                   : 'bg-slate-900 text-slate-400 border-slate-700 hover:text-white'
               }`}
             >
-              UP (Towards Max)
+              UP (Max)
             </button>
             <button
               onClick={() => onConfigChange({ ...config, direction: 'DOWN' })}
+              style={config.direction === 'DOWN' ? { backgroundColor: theme.primaryHex, color: '#ffffff' } : {}}
               className={`py-1 text-xs font-semibold rounded-lg border transition-colors ${
                 config.direction === 'DOWN'
-                  ? 'bg-cyan-500 text-slate-950 border-cyan-400'
+                  ? 'border-transparent shadow'
+                  : theme.isLight
+                  ? 'bg-white text-slate-700 border-slate-300'
                   : 'bg-slate-900 text-slate-400 border-slate-700 hover:text-white'
               }`}
             >
-              DOWN (Towards 0)
+              DOWN (0)
             </button>
           </div>
         </div>
 
         {/* Spindle RPM */}
-        <div className="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3 flex flex-col justify-between">
-          <label className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
+        <div className={`${theme.bgCardSub} ${theme.borderSub} border rounded-xl p-3 flex flex-col justify-between`}>
+          <label className={`text-[11px] font-semibold ${theme.textMuted} uppercase tracking-wider block`}>
             Spindle Speed (RPM)
           </label>
           <select
             value={config.rpm}
             onChange={(e) => onConfigChange({ ...config, rpm: Number(e.target.value) })}
-            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-sm font-mono text-slate-200 focus:outline-none focus:border-cyan-400"
+            className={`w-full rounded-lg px-3 py-1.5 text-sm font-mono border focus:outline-none ${
+              theme.isLight
+                ? 'bg-white border-slate-300 text-slate-900'
+                : 'bg-slate-900 border-slate-700 text-slate-200'
+            }`}
           >
-            <option value="5400">5400 RPM (Laptop HDD)</option>
-            <option value="7200">7200 RPM (Desktop Standard)</option>
-            <option value="10000">10,000 RPM (High-Performance)</option>
-            <option value="15000">15,000 RPM (Enterprise SAS)</option>
+            <option value="5400">5400 RPM (Laptop)</option>
+            <option value="7200">7200 RPM (Desktop)</option>
+            <option value="10000">10,000 RPM (High-End)</option>
+            <option value="15000">15,000 RPM (Enterprise)</option>
           </select>
         </div>
       </div>
 
       {/* Request Queue Input Row */}
-      <div className="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3">
+      <div className={`${theme.bgCardSub} ${theme.borderSub} border rounded-xl p-3`}>
         <div className="flex items-center justify-between mb-1.5">
-          <label className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+          <label className={`text-[11px] font-semibold ${theme.textMuted} uppercase tracking-wider`}>
             I/O Request Queue ({requests.length} requests loaded)
           </label>
-          <span className="text-[11px] text-slate-500">Comma or space separated</span>
+          <span className={`text-[11px] ${theme.textMuted}`}>Comma or space separated</span>
         </div>
         <div className="flex gap-2">
           <input
@@ -251,11 +294,16 @@ export const HeaderAndControls: React.FC<Props> = ({
             value={requestText}
             onChange={(e) => handleApplyRequests(e.target.value)}
             placeholder="e.g. 98, 183, 37, 122, 14, 124, 65, 67"
-            className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm font-mono text-emerald-300 focus:outline-none focus:border-cyan-400"
+            className={`flex-1 rounded-lg px-3 py-2 text-sm font-mono border focus:outline-none ${
+              theme.isLight
+                ? 'bg-white border-slate-300 text-slate-900'
+                : 'bg-slate-900 border-slate-700 text-emerald-300'
+            }`}
           />
           <button
             onClick={() => handleApplyRequests(requestText)}
-            className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs font-semibold transition-colors"
+            style={{ backgroundColor: theme.primaryHex }}
+            className="px-4 py-2 text-white rounded-lg text-xs font-semibold transition-all hover:opacity-90 shadow-md"
           >
             Apply
           </button>
