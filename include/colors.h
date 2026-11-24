@@ -41,6 +41,21 @@
 #define ANSI_DRACULA_ALABASTER  "\033[38;2;248;248;242m"  /* #f8f8f2: Text */
 #define ANSI_DRACULA_SLATE      "\033[38;2;98;114;164m"   /* #6272a4: Comment Slate */
 
+/* Forest Terminal Palette (RGB 24-bit TrueColor) */
+#define ANSI_FOREST_GREEN       "\033[38;2;76;175;80m"    /* #4caf50: Pine Green (primary) */
+#define ANSI_FOREST_MINT        "\033[38;2;129;199;132m"  /* #81c784: Soft Leaf Mint */
+#define ANSI_FOREST_BARK        "\033[38;2;141;110;99m"   /* #8d6e63: Warm Bark Brown */
+#define ANSI_FOREST_SAGE        "\033[38;2;220;237;200m"  /* #dcedc8: Sage Linen White */
+#define ANSI_FOREST_MUTED       "\033[38;2;122;158;126m"  /* #7a9e7e: Muted Forest Green */
+#define ANSI_FOREST_DEEP        "\033[38;2;46;79;46m"     /* #2e4f2e: Deep Canopy Border */
+
+/* Active Theme Aliases → Forest Terminal */
+#define ANSI_THEME_PRIMARY      ANSI_FOREST_GREEN
+#define ANSI_THEME_SECONDARY    ANSI_FOREST_MINT
+#define ANSI_THEME_ACCENT       ANSI_FOREST_BARK
+#define ANSI_THEME_TEXT         ANSI_FOREST_SAGE
+#define ANSI_THEME_MUTED        ANSI_FOREST_MUTED
+
 /* Enable Virtual Terminal Processing for Windows console */
 static inline void init_terminal_colors(void) {
 #ifdef _WIN32

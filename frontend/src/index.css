@@ -2,25 +2,25 @@
 
 @layer base {
   body {
-    background-color: #1e1f29;
-    color: #f8f8f2;
+    background-color: #111a11;
+    color: #dcedc8;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* Custom scrollbar styled with Dracula Pro palette */
+/* Custom scrollbar styled with Forest Terminal palette */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #191a21;
+  background: #0b120b;
 }
 ::-webkit-scrollbar-thumb {
-  background: #44475a;
+  background: #2d4a2d;
   border-radius: 4px;
-  border: 1px solid #282a36;
+  border: 1px solid #182218;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #bd93f9;
+  background: #4caf50;
 }

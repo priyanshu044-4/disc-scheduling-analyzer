@@ -11,11 +11,11 @@
 /* Display step-by-step head movement with ASCII track position indicator */
 void visualize_step_by_step(const ScheduleResult *result, const DiskConfig *config) {
     printf("\n%s%s========================================================================================%s\n", 
-           ANSI_BOLD, ANSI_DRACULA_PURPLE, ANSI_RESET);
+           ANSI_BOLD, ANSI_THEME_PRIMARY, ANSI_RESET);
     printf("%s   TRAVERSAL TRACE: %s%s%s (Initial Head: %d, Cylinders: 0-%d)\n", 
-           ANSI_BOLD, ANSI_DRACULA_PINK, result->name, ANSI_RESET, config->initial_head, config->total_cylinders - 1);
+           ANSI_BOLD, ANSI_THEME_ACCENT, result->name, ANSI_RESET, config->initial_head, config->total_cylinders - 1);
     printf("%s========================================================================================%s\n", 
-           ANSI_DRACULA_PURPLE, ANSI_RESET);
+           ANSI_THEME_PRIMARY, ANSI_RESET);
 
     printf("%s%-6s %-8s %-8s %-10s %-14s %-45s%s\n", 
            ANSI_BOLD, "Step", "From", "To", "Seek", "Action", "Disk Platter Map [0 ... Max-1]", ANSI_RESET);
@@ -48,26 +48,26 @@ void visualize_step_by_step(const ScheduleResult *result, const DiskConfig *conf
         }
 
         const char *action_str = step.is_service ? "Service Req" : "Boundary Swing";
-        const char *color_code = step.is_service ? ANSI_DRACULA_GREEN : ANSI_DRACULA_PINK;
+        const char *color_code = step.is_service ? ANSI_THEME_SECONDARY : ANSI_THEME_ACCENT;
 
         printf("%s[%3d]%s  %-8d %-8d %-10d %s%-14s%s [%s]\n",
-               ANSI_DRACULA_CYAN, i + 1, ANSI_RESET,
+               ANSI_THEME_MUTED, i + 1, ANSI_RESET,
                step.from_cylinder, step.to_cylinder, step.seek_distance,
                color_code, action_str, ANSI_RESET, track_map);
     }
     printf("----------------------------------------------------------------------------------------\n");
     printf("%sTotal Head Movement:%s %s%d cylinders%s | %sAvg Seek:%s %.2f cylinders\n",
-           ANSI_BOLD, ANSI_RESET, ANSI_DRACULA_PURPLE, result->total_head_movement, ANSI_RESET,
+           ANSI_BOLD, ANSI_RESET, ANSI_THEME_PRIMARY, result->total_head_movement, ANSI_RESET,
            ANSI_BOLD, ANSI_RESET, result->avg_seek_distance);
 }
 
 /* Render an ASCII 2D timeline graph of cylinder position vs. step */
 void visualize_timeline_graph(const ScheduleResult *result, const DiskConfig *config) {
     printf("\n%s%s========================================================================================%s\n", 
-           ANSI_BOLD, ANSI_DRACULA_PURPLE, ANSI_RESET);
-    printf("%s   CYLINDER TRAJECTORY TIMELINE: %s%s%s\n", ANSI_BOLD, ANSI_DRACULA_PINK, result->name, ANSI_RESET);
+           ANSI_BOLD, ANSI_THEME_PRIMARY, ANSI_RESET);
+    printf("%s   CYLINDER TRAJECTORY TIMELINE: %s%s%s\n", ANSI_BOLD, ANSI_THEME_ACCENT, result->name, ANSI_RESET);
     printf("%s========================================================================================%s\n", 
-           ANSI_DRACULA_PURPLE, ANSI_RESET);
+           ANSI_THEME_PRIMARY, ANSI_RESET);
 
     int graph_width = 50;
     printf("  Step | Cyl  | 0%*d\n", graph_width - 1, config->total_cylinders - 1);
@@ -92,7 +92,7 @@ void visualize_timeline_graph(const ScheduleResult *result, const DiskConfig *co
     for (int i = 0; i < graph_width; i++) printf("-");
     printf("+\n");
     printf("  Legend: %sH%s = Starting Head, %so%s = Cylinder Visited\n", 
-           ANSI_DRACULA_CYAN, ANSI_RESET, ANSI_DRACULA_GREEN, ANSI_RESET);
+           ANSI_THEME_MUTED, ANSI_RESET, ANSI_THEME_SECONDARY, ANSI_RESET);
 }
 
 /* Render comparative ASCII bar chart of total head movement across all algorithms */
@@ -100,10 +100,10 @@ void visualize_comparison_bar_chart(const ScheduleResult results[], int count) {
     if (count <= 0) return;
 
     printf("\n%s%s========================================================================================%s\n", 
-           ANSI_BOLD, ANSI_DRACULA_PURPLE, ANSI_RESET);
+           ANSI_BOLD, ANSI_THEME_PRIMARY, ANSI_RESET);
     printf("%s   ALGORITHM EFFICIENCY COMPARISON (TOTAL SEEK DISTANCE)%s\n", ANSI_BOLD, ANSI_RESET);
     printf("%s========================================================================================%s\n", 
-           ANSI_DRACULA_PURPLE, ANSI_RESET);
+           ANSI_THEME_PRIMARY, ANSI_RESET);
 
     int max_seek = 0;
     for (int i = 0; i < count; i++) {
@@ -126,13 +126,13 @@ void visualize_comparison_bar_chart(const ScheduleResult results[], int count) {
         double pct = ((double)results[i].total_head_movement / max_seek) * 100.0;
 
         const char *badge = "";
-        const char *color = ANSI_DRACULA_SLATE;
+        const char *color = ANSI_THEME_MUTED;
         if (results[i].rank == 1) {
             badge = " [OPT/BEST]";
-            color = ANSI_DRACULA_GREEN;
+            color = ANSI_THEME_SECONDARY;
         } else if (results[i].rank == 2) {
             badge = " [2nd]";
-            color = ANSI_DRACULA_CYAN;
+            color = ANSI_THEME_PRIMARY;
         }
 
         printf("  %-8s | %5d cyl | %s[%-*s]%s %5.1f%%%s\n",
@@ -150,11 +150,11 @@ void visualize_comparison_table(const ScheduleResult results[], int count, const
     if (count <= 0) return;
 
     printf("\n%s%s========================================================================================================================%s\n", 
-           ANSI_BOLD, ANSI_DRACULA_PURPLE, ANSI_RESET);
+           ANSI_BOLD, ANSI_THEME_PRIMARY, ANSI_RESET);
     printf("%s                                      COMPREHENSIVE PERFORMANCE ANALYSIS MATRIX                                        %s\n", 
            ANSI_BOLD, ANSI_RESET);
     printf("%s========================================================================================================================%s\n", 
-           ANSI_DRACULA_PURPLE, ANSI_RESET);
+           ANSI_THEME_PRIMARY, ANSI_RESET);
 
     printf("%s%-9s %-12s %-10s %-13s %-14s %-11s %-13s %-6s%s\n",
            ANSI_BOLD, "Algo", "Total Seek", "Avg Seek", "Seek Time(ms)", "Svc Time(ms)", "StdDev(Jitter)", "Starvation", "Rank", ANSI_RESET);
@@ -165,14 +165,14 @@ void visualize_comparison_table(const ScheduleResult results[], int count, const
         if (results[i].rank == 1) {
             best_idx = i;
         }
-        const char *rank_color = ANSI_DRACULA_SLATE;
-        if (results[i].rank == 1) rank_color = ANSI_DRACULA_GREEN;
-        else if (results[i].rank == 2) rank_color = ANSI_DRACULA_CYAN;
+        const char *rank_color = ANSI_THEME_MUTED;
+        if (results[i].rank == 1) rank_color = ANSI_THEME_SECONDARY;
+        else if (results[i].rank == 2) rank_color = ANSI_THEME_PRIMARY;
 
-        const char *starv_color = ANSI_DRACULA_ALABASTER;
-        if (strcmp(results[i].starvation_risk, "High") == 0) starv_color = ANSI_DRACULA_PINK;
+        const char *starv_color = ANSI_THEME_TEXT;
+        if (strcmp(results[i].starvation_risk, "High") == 0) starv_color = ANSI_FOREST_BARK;
         else if (strcmp(results[i].starvation_risk, "Moderate") == 0) starv_color = ANSI_DRACULA_YELLOW;
-        else starv_color = ANSI_DRACULA_GREEN;
+        else starv_color = ANSI_THEME_SECONDARY;
 
         printf("%s%-9s%s %-12d %-10.2f %-13.2f %-14.2f %-14.2f %s%-13s%s %s#%-5d%s\n",
                rank_color, results[i].name, ANSI_RESET,
@@ -189,8 +189,8 @@ void visualize_comparison_table(const ScheduleResult results[], int count, const
            ANSI_DIM, ANSI_RESET, config->base_seek_overhead, config->seek_time_per_cylinder, 
            results[0].avg_rotational_latency_ms, config->rpm);
     printf("%sRecommendation:%s Algorithm %s%s%s achieves optimal seek efficiency with %s%d cylinders%s moved.\n",
-           ANSI_BOLD, ANSI_RESET, ANSI_DRACULA_GREEN, results[best_idx].name, ANSI_RESET,
-           ANSI_DRACULA_PURPLE, results[best_idx].total_head_movement, ANSI_RESET);
+           ANSI_BOLD, ANSI_RESET, ANSI_THEME_SECONDARY, results[best_idx].name, ANSI_RESET,
+           ANSI_THEME_PRIMARY, results[best_idx].total_head_movement, ANSI_RESET);
 }
 
 /* Print a detailed summary report for a single algorithm */

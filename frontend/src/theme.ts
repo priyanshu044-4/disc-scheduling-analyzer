@@ -1,4 +1,5 @@
 export type ThemeId =
+  | 'forest-terminal'
   | 'dracula-pro'
   | 'blueprint-cad'
   | 'aurora-glacier'
@@ -49,7 +50,39 @@ export interface ThemeColors {
 }
 
 export const THEMES: Record<ThemeId, ThemeColors> = {
-  // 1. Primary Default: Dracula Pro (Beloved Developer Palette)
+  // 1. Primary Default: Forest Terminal (Deep Mossy Forest Floor)
+  'forest-terminal': {
+    id: 'forest-terminal',
+    name: 'Forest Terminal',
+    icon: '🌲',
+    isLight: false,
+    bgPage: 'bg-[#111a11]',            // Deep forest floor black-green
+    bgNavbar: 'bg-[#162016]/90',
+    bgCard: 'bg-[#182218]/95',          // Dark moss canopy
+    bgCardSub: 'bg-[#0e160e]/90',
+    borderCard: 'border-[#3a5c3a]/50', // Pine branch outline
+    borderSub: 'border-[#2d4a2d]/30',
+    primaryHex: '#4caf50',              // Vivid Pine Green
+    primaryHoverHex: '#66bb6a',
+    primaryGlow: 'rgba(76, 175, 80, 0.45)',
+    primaryTextHex: '#0e160e',
+    secondaryHex: '#81c784',            // Soft leaf mint
+    accentHex: '#8d6e63',               // Warm bark brown
+    textTitle: 'text-[#dcedc8]',        // Sage linen white
+    textBody: 'text-[#c8e6c9]',
+    textMuted: 'text-[#7a9e7e]',        // Muted forest green
+    textAccent: 'text-[#4caf50]',
+    chartBg: '#0b120b',
+    chartGrid: '#1e3320',
+    chartLineInactive: '#2d4a2d',
+    chartText: '#81c784',
+    primaryBgBtn: 'bg-[#4caf50] hover:bg-[#66bb6a]',
+    primaryTextBtn: 'text-[#0e160e] font-bold',
+    activePill: 'bg-[#4caf50] text-[#0e160e] shadow-lg shadow-[#4caf50]/30 font-bold',
+    inactivePill: 'bg-[#1e2f1e] text-[#c8e6c9] hover:bg-[#273f27] hover:text-[#dcedc8]',
+  },
+
+  // 2. Dracula Pro (Beloved Developer Palette)
   'dracula-pro': {
     id: 'dracula-pro',
     name: 'Dracula Pro',
