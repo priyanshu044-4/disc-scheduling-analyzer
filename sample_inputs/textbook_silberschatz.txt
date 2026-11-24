@@ -1,0 +1,7 @@
+# Silberschatz OS Textbook Benchmark
+# Standard reference benchmark for Operating Systems courses
+cylinders = 200
+head = 53
+direction = up
+rpm = 7200
+requests = 98, 183, 37, 122, 14, 124, 65, 67

@@ -1,0 +1,92 @@
+========================================================================================
+            MINI PROJECT 1: STUDENT PERFORMANCE ANALYSIS USING MATLAB                   
+                     COMPREHENSIVE ACADEMIC PERFORMANCE REPORT                          
+========================================================================================
+Total Students (N)  : 50 students
+Academic Subjects   : 5 (Mathematics, Physics, Chemistry, Computer_Science, English)
+Syllabus Mapping    : Units 1 (Matrices), 3 (Statistics & Plotting), 4 (Regression & t-Test)
+----------------------------------------------------------------------------------------
+
+SECTION 1: DESCRIPTIVE STATISTICAL SUMMARY (MEASURES OF CENTRAL TENDENCY & DISPERSION)
+----------------------------------------------------------------------------------------
+Subject / Metric       Mean   Median     Mode    Range   Variance    Std Dev
+----------------------------------------------------------------------------------------
+Mathematics           73.36    72.00    66.00    32.00      71.05       8.43
+Physics               67.28    66.50    64.00    48.00     103.88      10.19
+Chemistry             71.32    72.50    64.00    41.00      98.96       9.95
+Computer_Science      75.20    77.50    79.00    40.00     100.82      10.04
+English               70.38    71.00    65.00    41.00      87.67       9.36
+----------------------------------------------------------------------------------------
+Total Marks          357.54   365.50   307.00   180.00    1945.23      44.10
+Average Marks (%)     71.51    73.10    61.40    36.00      77.81       8.82
+Attendance (%)        79.13    79.15    85.10    34.50      80.39       8.97
+----------------------------------------------------------------------------------------
+
+SECTION 2: BIVARIATE CORRELATION ANALYSIS (ATTENDANCE VS EXAMINATION MARKS)
+----------------------------------------------------------------------------------------
+Pearson Correlation Coefficient (r) : 0.7215
+Coefficient of Determination (r^2)   : 0.5206 (52.06% variance explained)
+Correlation Strength & Direction    : Strong Positive Linear Association
+
+Subject-Wise Correlation with Class Attendance:
+  * Mathematics        : r = 0.6382
+  * Physics            : r = 0.7491
+  * Chemistry          : r = 0.6804
+  * Computer_Science   : r = 0.7012
+  * English            : r = 0.6558
+Key Finding: Attendance exhibits a strong, statistically sound positive correlation
+             with examination performance across all five disciplines.
+----------------------------------------------------------------------------------------
+
+SECTION 3: ORDINARY LEAST SQUARES (OLS) LINEAR REGRESSION & ACADEMIC PREDICTION
+----------------------------------------------------------------------------------------
+Regression Equation                 : Predicted_Marks = 0.7532 * Attendance + 10.9009
+Slope (Beta_1)                      : +0.7532 (Marks gain per +1.0% attendance)
+Intercept (Beta_0)                  : 10.9009 (Base score)
+R-Squared (Goodness of Fit)         : 0.5206 (52.06% variance explained)
+Adjusted R-Squared                  : 0.5106
+Root Mean Squared Error (RMSE)      : 6.0463 marks
+Mean Absolute Error (MAE)           : 4.8812 marks
+
+Academic Marks Predictions for Benchmark Attendance Levels:
+  Attendance (%)     Predicted Marks (%)       Performance Category
+  ----------------------------------------------------------------------------
+  60.0               56.09                     Pass / Grade D
+  75.0               67.39                     Second Class / Grade C
+  85.0               74.92                     First Class / Grade B
+  95.0               82.46                     Distinction / Grade A
+----------------------------------------------------------------------------------------
+
+SECTION 4: INFERENTIAL HYPOTHESIS TESTING (TWO-SAMPLE INDEPENDENT STUDENT'S T-TEST)
+----------------------------------------------------------------------------------------
+Null Hypothesis (H0)        : mu_A = mu_B (No difference in mean performance between groups)
+Alternative Hypothesis (H1) : mu_A != mu_B (Statistically significant difference)
+Significance Level (Alpha)  : 0.05 (95% Confidence Interval)
+
+Group A (Active Tutorial)   : N = 25, Mean = 77.00%, Std Dev = 6.92
+Group B (Standard Study)    : N = 25, Mean = 66.02%, Std Dev = 6.94
+Observed Difference (A - B) : +10.98 marks
+Pooled Variance / Std Dev   : 47.9892 / 6.9274
+Standard Error (SE)         : 1.9594
+Degrees of Freedom (df)     : 48
+Calculated t-statistic      : 5.6046
+Critical t-value (|t_crit|) : +/- 2.0106
+Two-Tailed p-value          : 1.0015e-06
+95% Confidence Interval     : [7.04, 14.92] marks
+
+Statistical Decision:
+  => REJECT THE NULL HYPOTHESIS (p = 1.0015e-06 < 0.05).
+  => Group A achieved a statistically significant, superior performance compared to Group B.
+----------------------------------------------------------------------------------------
+
+SECTION 5: PEDAGOGICAL INSIGHTS & STRATEGIC RECOMMENDATIONS
+----------------------------------------------------------------------------------------
+1. Mandatory Attendance Policy: Maintaining attendance >= 75% secures an estimated
+   examination score >= 67.39%, comfortably surpassing the threshold for higher grades.
+2. Early Warning Mechanism: Students with attendance < 60% are predicted to score
+   in the pass/remedial band (< 56%) and should be placed on proactive academic intervention.
+3. Tutorial / Group A Methodology: The active group intervention model yielded an average
+   gain of +10.98 marks (p < 0.001). This tutorial structure should be scaled across classes.
+========================================================================================
+                                  END OF REPORT                                         
+========================================================================================

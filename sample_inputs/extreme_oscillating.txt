@@ -1,0 +1,7 @@
+# Extreme Alternating / Ping-Pong Stress Test
+# Demonstrates pathological head thrashing in FCFS versus elevator smoothing in SCAN/LOOK
+cylinders = 500
+head = 250
+direction = up
+rpm = 7200
+requests = 15, 485, 25, 475, 30, 460, 40, 450, 10, 490, 50, 440

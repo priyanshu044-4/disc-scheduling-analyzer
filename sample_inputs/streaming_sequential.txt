@@ -1,0 +1,7 @@
+# Sequential Access Workload (Streaming Media, Backup, Log Append)
+# Shows optimal performance where head moves monotonically with minimal seek delay
+cylinders = 500
+head = 100
+direction = up
+rpm = 7200
+requests = 102, 105, 110, 114, 119, 125, 131, 140, 150, 162, 175, 190

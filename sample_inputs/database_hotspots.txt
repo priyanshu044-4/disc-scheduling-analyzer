@@ -1,0 +1,7 @@
+# Database Workload Simulation (Index Lookups + Transaction Log Writes)
+# Demonstrates how SSTF can starve distant clusters under localized hotspot traffic
+cylinders = 1000
+head = 150
+direction = up
+rpm = 10000
+requests = 120, 125, 118, 130, 850, 860, 845, 870, 140, 855, 122, 880, 115, 865, 135
