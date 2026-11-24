@@ -80,17 +80,17 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
         <svg viewBox="0 0 460 460" className="w-full h-full drop-shadow-2xl">
           <defs>
             <radialGradient id="platterGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#141a16" />
-              <stop offset="35%" stopColor="#364239" />
-              <stop offset="65%" stopColor="#252e27" />
-              <stop offset="85%" stopColor="#465449" />
-              <stop offset="100%" stopColor="#141a16" />
+              <stop offset="0%" stopColor={theme.isLight ? '#f1f5f9' : '#191a21'} />
+              <stop offset="35%" stopColor={theme.isLight ? '#e2e8f0' : '#282a36'} />
+              <stop offset="65%" stopColor={theme.isLight ? '#cbd5e1' : '#21222c'} />
+              <stop offset="85%" stopColor={theme.isLight ? '#94a3b8' : '#343746'} />
+              <stop offset="100%" stopColor={theme.isLight ? '#64748b' : '#191a21'} />
             </radialGradient>
 
             <linearGradient id="armGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#bcb096" />
-              <stop offset="50%" stopColor="#ded7c8" />
-              <stop offset="100%" stopColor="#7a7c64" />
+              <stop offset="0%" stopColor={theme.accentHex} />
+              <stop offset="50%" stopColor={theme.primaryHex} />
+              <stop offset="100%" stopColor={theme.secondaryHex} />
             </linearGradient>
 
             <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
@@ -106,8 +106,8 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
             width="420"
             height="420"
             rx="30"
-            fill={theme.isLight ? '#eae4d6' : '#111713'}
-            stroke={theme.isLight ? '#c8bfae' : '#2b362e'}
+            fill={theme.isLight ? '#eae4d6' : '#14151f'}
+            stroke={theme.isLight ? '#c8bfae' : '#44475a'}
             strokeWidth="4"
           />
           <rect
@@ -117,16 +117,16 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
             height="404"
             rx="24"
             fill="none"
-            stroke={theme.isLight ? '#d6cdbd' : '#3e4e42'}
+            stroke={theme.isLight ? '#d6cdbd' : '#6272a4'}
             strokeWidth="1"
-            opacity="0.4"
+            opacity="0.3"
           />
 
           {/* Mounting Screws */}
-          <circle cx="45" cy="45" r="7" fill="#465248" stroke="#7a7c64" />
-          <circle cx="415" cy="45" r="7" fill="#465248" stroke="#7a7c64" />
-          <circle cx="45" cy="415" r="7" fill="#465248" stroke="#7a7c64" />
-          <circle cx="415" cy="415" r="7" fill="#465248" stroke="#7a7c64" />
+          <circle cx="45" cy="45" r="7" fill={theme.isLight ? '#94a3b8' : '#44475a'} stroke={theme.isLight ? '#cbd5e1' : '#6272a4'} />
+          <circle cx="415" cy="45" r="7" fill={theme.isLight ? '#94a3b8' : '#44475a'} stroke={theme.isLight ? '#cbd5e1' : '#6272a4'} />
+          <circle cx="45" cy="415" r="7" fill={theme.isLight ? '#94a3b8' : '#44475a'} stroke={theme.isLight ? '#cbd5e1' : '#6272a4'} />
+          <circle cx="415" cy="415" r="7" fill={theme.isLight ? '#94a3b8' : '#44475a'} stroke={theme.isLight ? '#cbd5e1' : '#6272a4'} />
 
           {/* Rotating Platter */}
           <g transform={`rotate(${rotation} ${platterCenterX} ${platterCenterY})`}>
@@ -134,8 +134,8 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
               cx={platterCenterX}
               cy={platterCenterY}
               r={outerRadius + 8}
-              fill="#1d2520"
-              stroke="#465248"
+              fill={theme.isLight ? '#f1f5f9' : '#191a21'}
+              stroke={theme.isLight ? '#cbd5e1' : '#44475a'}
               strokeWidth="2"
             />
             <circle cx={platterCenterX} cy={platterCenterY} r={outerRadius} fill="url(#platterGrad)" />
@@ -147,7 +147,7 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
                 cy={platterCenterY}
                 r={innerRadius + frac * (outerRadius - innerRadius)}
                 fill="none"
-                stroke="#7a7c64"
+                stroke={theme.secondaryHex}
                 strokeWidth="0.8"
                 opacity="0.35"
                 strokeDasharray="4 6"
@@ -156,8 +156,8 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
 
             <path
               d={`M ${platterCenterX} ${platterCenterY} L ${platterCenterX + outerRadius} ${platterCenterY - 30} A ${outerRadius} ${outerRadius} 0 0 1 ${platterCenterX + 30} ${platterCenterY + outerRadius} Z`}
-              fill="#cec88a"
-              opacity="0.05"
+              fill={theme.primaryHex}
+              opacity="0.08"
             />
           </g>
 
@@ -174,9 +174,9 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
           />
 
           {/* Central Spindle Motor */}
-          <circle cx={platterCenterX} cy={platterCenterY} r={innerRadius - 20} fill="#1d2520" stroke="#7a7c64" strokeWidth="4" />
-          <circle cx={platterCenterX} cy={platterCenterY} r="25" fill="#364239" stroke="#bcb096" strokeWidth="2" />
-          <circle cx={platterCenterX} cy={platterCenterY} r="8" fill="#111713" />
+          <circle cx={platterCenterX} cy={platterCenterY} r={innerRadius - 20} fill={theme.isLight ? '#f1f5f9' : '#191a21'} stroke={theme.secondaryHex} strokeWidth="3" />
+          <circle cx={platterCenterX} cy={platterCenterY} r="25" fill={theme.isLight ? '#cbd5e1' : '#282a36'} stroke={theme.primaryHex} strokeWidth="2" />
+          <circle cx={platterCenterX} cy={platterCenterY} r="8" fill={theme.isLight ? '#64748b' : '#14151f'} />
 
           {[0, 60, 120, 180, 240, 300].map((deg, i) => {
             const rad = (deg * Math.PI) / 180;
@@ -186,18 +186,18 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
                 cx={platterCenterX + 16 * Math.cos(rad)}
                 cy={platterCenterY + 16 * Math.sin(rad)}
                 r="2.5"
-                fill="#cec88a"
+                fill={theme.primaryHex}
               />
             );
           })}
 
           {/* Actuator Voice Coil Magnet Assembly */}
-          <path d="M 40 40 Q 90 25 120 70 L 100 110 Q 60 70 40 40 Z" fill="#242c26" stroke="#465248" strokeWidth="2" />
+          <path d="M 40 40 Q 90 25 120 70 L 100 110 Q 60 70 40 40 Z" fill={theme.isLight ? '#cbd5e1' : '#282a36'} stroke={theme.isLight ? '#94a3b8' : '#44475a'} strokeWidth="2" />
 
           {/* Actuator Pivot Axis */}
-          <circle cx={pivotX} cy={pivotY} r="24" fill="#1d2520" stroke="#7a7c64" strokeWidth="3" />
-          <circle cx={pivotX} cy={pivotY} r="14" fill="#364239" />
-          <circle cx={pivotX} cy={pivotY} r="6" fill="#111713" />
+          <circle cx={pivotX} cy={pivotY} r="24" fill={theme.isLight ? '#f1f5f9' : '#191a21'} stroke={theme.primaryHex} strokeWidth="3" />
+          <circle cx={pivotX} cy={pivotY} r="14" fill={theme.isLight ? '#cbd5e1' : '#282a36'} />
+          <circle cx={pivotX} cy={pivotY} r="6" fill={theme.isLight ? '#64748b' : '#14151f'} />
 
           {/* Moving Actuator Arm */}
           <g
@@ -207,12 +207,12 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
             <polygon
               points={`${pivotX},${pivotY - 8} ${pivotX + 175},${pivotY + 130} ${pivotX + 178},${pivotY + 135} ${pivotX},${pivotY + 8}`}
               fill="url(#armGrad)"
-              stroke="#465248"
+              stroke={theme.isLight ? '#94a3b8' : '#44475a'}
               strokeWidth="1.5"
             />
             <polygon
               points={`${pivotX},${pivotY - 8} ${pivotX - 25},${pivotY - 18} ${pivotX - 22},${pivotY + 18} ${pivotX},${pivotY + 8}`}
-              fill="#242c26"
+              fill={theme.isLight ? '#cbd5e1' : '#282a36'}
             />
 
             <rect
@@ -221,7 +221,7 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
               width="14"
               height="8"
               rx="2"
-              fill={theme.primaryHex}
+              fill={theme.accentHex}
               stroke="#ffffff"
               filter="url(#glow)"
             />
@@ -235,7 +235,7 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
             />
           </g>
 
-          <text x="35" y="430" fill="#7a7c64" fontSize="12" fontFamily="monospace">
+          <text x="35" y="430" fill={theme.secondaryHex} fontSize="12" fontFamily="monospace">
             SPEED: {config.rpm} RPM
           </text>
           <text x="310" y="430" fill={theme.primaryHex} fontSize="12" fontFamily="monospace" fontWeight="bold">
@@ -257,7 +257,7 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
             value={currentStepIndex}
             onChange={(e) => onStepChange(Number(e.target.value))}
             style={{ accentColor: theme.primaryHex }}
-            className="flex-1 h-2 bg-[#2b352f] rounded-lg appearance-none cursor-pointer"
+            className={`flex-1 h-2 rounded-lg appearance-none cursor-pointer ${theme.isLight ? 'bg-slate-300' : 'bg-[#44475a]'}`}
           />
           <span className="text-xs font-mono font-bold min-w-14 text-right" style={{ color: theme.primaryHex }}>
             {currentStepIndex > 0 ? `+${currentStep?.seekDistance} cyl` : 'Start'}
@@ -271,8 +271,8 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
               title="Reset to Start"
               className={`p-1.5 rounded-lg border transition-colors ${
                 theme.isLight
-                  ? 'bg-[#e5ddd0] hover:bg-[#dbd1c1] text-[#40392f] border-[#d1c8b4]'
-                  : 'bg-[#2b352f] hover:bg-[#36423b] text-[#ded7c8] border-[#465248]'
+                  ? 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'
+                  : `${theme.bgCardSub} hover:border-[#bd93f9] ${theme.textBody} ${theme.borderSub}`
               }`}
             >
               <RotateCcw className="w-4 h-4" />
@@ -283,8 +283,8 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
               title="Previous Step"
               className={`p-1.5 rounded-lg border transition-colors disabled:opacity-40 ${
                 theme.isLight
-                  ? 'bg-[#e5ddd0] hover:bg-[#dbd1c1] text-[#40392f] border-[#d1c8b4]'
-                  : 'bg-[#2b352f] hover:bg-[#36423b] text-[#ded7c8] border-[#465248]'
+                  ? 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'
+                  : `${theme.bgCardSub} hover:border-[#bd93f9] ${theme.textBody} ${theme.borderSub}`
               }`}
             >
               <SkipBack className="w-4 h-4" />
@@ -308,8 +308,8 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
               title="Next Step"
               className={`p-1.5 rounded-lg border transition-colors disabled:opacity-40 ${
                 theme.isLight
-                  ? 'bg-[#e5ddd0] hover:bg-[#dbd1c1] text-[#40392f] border-[#d1c8b4]'
-                  : 'bg-[#2b352f] hover:bg-[#36423b] text-[#ded7c8] border-[#465248]'
+                  ? 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'
+                  : `${theme.bgCardSub} hover:border-[#bd93f9] ${theme.textBody} ${theme.borderSub}`
               }`}
             >
               <SkipForward className="w-4 h-4" />
@@ -317,7 +317,7 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
           </div>
 
           {/* Speed Selector */}
-          <div className={`flex items-center gap-1 p-1 rounded-lg border ${theme.isLight ? 'bg-[#e5ddd0] border-[#d1c8b4]' : 'bg-[#19201a] border-[#465248]/60'}`}>
+          <div className={`flex items-center gap-1 p-1 rounded-lg border ${theme.isLight ? 'bg-slate-100 border-slate-300' : `${theme.bgCardSub} ${theme.borderSub}`}`}>
             {[0.5, 1, 2, 4].map((spd) => (
               <button
                 key={spd}
@@ -326,7 +326,7 @@ export const DiskPlatterVisualizer: React.FC<Props> = ({
                 className={`px-2 py-0.5 text-[11px] rounded font-mono font-medium transition-colors ${
                   playbackSpeed === spd
                     ? 'font-bold shadow'
-                    : `${theme.textMuted} hover:text-[#ece6da]`
+                    : `${theme.textMuted} hover:${theme.textTitle}`
                 }`}
               >
                 {spd}x
