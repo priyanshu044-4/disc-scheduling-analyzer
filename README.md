@@ -1,20 +1,30 @@
 # 💽 Disc Scheduling Analyzer & Hardware Simulator
 
-[![Live Web Demo](https://img.shields.io/badge/Vercel-Live%20Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://frontend-indol-five-96.vercel.app)
+[![Live Web Demo](https://img.shields.io/badge/Vercel-Live%20Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://dist-omega-kohl-63.vercel.app)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/priyanshu044-4/disc-scheduling-analyzer)
 [![Language C99](https://img.shields.io/badge/C-C99-00599C?style=for-the-badge&logo=c&logoColor=white)](#c-terminal-cli)
 [![React Vite](https://img.shields.io/badge/React-Vite%20%2B%20Tailwind-61DAFB?style=for-the-badge&logo=react&logoColor=black)](#web-frontend)
 
 An interactive, high-performance **Disc Scheduling Analyzer & Physical Platter Simulator** built for **Advanced Operating Systems (AOS)** and **Operating System Concepts** coursework, laboratory assignments, and academic demonstrations.
 
-Featuring both a **Standard C (C99) Terminal Engine** and a **Modern Interactive Web Frontend** hosted live on Vercel!
+Featuring both a **Standard C (C99) Terminal Engine** and a **Modern Interactive Web Frontend** styled with an editorial rustic moss, olive, and stone palette!
 
 ---
 
 ## 🌐 Live Web Application
 
-- **Live URL**: [https://frontend-indol-five-96.vercel.app](https://frontend-indol-five-96.vercel.app)
+- **Live URL**: [https://dist-omega-kohl-63.vercel.app](https://dist-omega-kohl-63.vercel.app)
+- **Alternative Mirror**: [https://frontend-indol-five-96.vercel.app](https://frontend-indol-five-96.vercel.app)
 - **GitHub Repository**: [https://github.com/priyanshu044-4/disc-scheduling-analyzer](https://github.com/priyanshu044-4/disc-scheduling-analyzer)
+
+### 🎨 Color Palette (Natural Weathered Moss, Wood & Stone)
+Extracted directly from the rustic weathered door palette:
+- `Linen Cream` (`#ece6da`): Warm textured stone typography & card headers.
+- `Moss Gold / Olive Ochre` (`#cec88a`): Primary brand highlight, seek metrics & active arm.
+- `Sage Green / Dried Herb` (`#7a7c64`): Secondary borders, platter spindle & track highlights.
+- `Deep Forest Spruce` (`#465248`): Hard drive chassis body & dark container borders.
+- `Charcoal Bark Umber` (`#40392f`): High-contrast text on gold pills & dark accents.
+- `Taupe Stone` (`#bcb096`): Actuator arm stem, muted labels & slider tracks.
 
 ### Web Features:
 * 💽 **Physical Platter & Actuator Arm Simulator**: Real-time rotating magnetic platter with an animated voice-coil actuator arm that sweeps radially to the target cylinder track.

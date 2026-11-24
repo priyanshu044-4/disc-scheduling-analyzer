@@ -9,6 +9,9 @@
     "lint": "oxlint",
     "preview": "vite preview"
   },
+  "engines": {
+    "node": "24.x"
+  },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
     "lucide-react": "^1.79.0",
